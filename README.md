@@ -1,7 +1,7 @@
 ico-saver
 =============
 
-A port of the X11 application to Mac OS X as a screensaver.
+v1.0: A port of the X11 application to Mac OS X as a screensaver.
 
 Setup
 -------
