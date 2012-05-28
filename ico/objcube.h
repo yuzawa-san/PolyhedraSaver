@@ -1,4 +1,5 @@
 /* objcube.h - structure values for cube */
+// from  x11 ico source
 
 {	"cube", 100,
 	8, 12, 6,	/* number of vertices, edges, and faces */

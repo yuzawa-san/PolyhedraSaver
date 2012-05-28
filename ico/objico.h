@@ -1,4 +1,5 @@
 /* objico.h - structure values for icosahedron */
+// from  x11 ico source
 
 {	"icosahedron", 101,
 	12, 30, 20,	/* number of vertices, edges, and faces */

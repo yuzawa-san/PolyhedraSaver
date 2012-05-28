@@ -1,4 +1,5 @@
 /* objocta.h - structure values for octahedron */
+// from  x11 ico source
 
 {	"octahedron", 102,
 	6, 12, 8,	/* number of vertices, edges, and faces */

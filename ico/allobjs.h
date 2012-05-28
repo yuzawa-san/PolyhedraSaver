@@ -7,6 +7,7 @@
 //
 
 // Add headers with definitions of objects here
+// from  x11 ico source
 
 #include "objcube.h"
 #include "objico.h"

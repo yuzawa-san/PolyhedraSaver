@@ -1,4 +1,5 @@
 /* objpyr.h - structure values for pyramid */
+// from  x11 ico source
 
 {       "pyramid", 103,
         5, 8, 5,        /* number of vertices, edges, and faces */
