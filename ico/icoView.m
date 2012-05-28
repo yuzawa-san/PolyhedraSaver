@@ -3,7 +3,7 @@
 //  ico
 //
 //  Created by James Yuzawa on 9/25/11.
-//  Copyright 2011 James Yuzawa. All rights reserved.
+//  Copyright 2012 James Yuzawa. All rights reserved.
 //
 
 #import "icoView.h"
