@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */; };
-		FACBCF82259F81630039CF3E /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Polyhedron.swift */; };
+		FACBCF82259F81630039CF3E /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Renderer.swift */; };
+		FACBCF85259F8B450039CF3E /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF84259F8B450039CF3E /* Polyhedra.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FACBCF6C259F777F0039CF3E /* Ico.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Ico.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACBCF73259F777F0039CF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcoScreenSaverView.swift; sourceTree = "<group>"; };
-		FACBCF81259F81630039CF3E /* Polyhedron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedron.swift; sourceTree = "<group>"; };
+		FACBCF81259F81630039CF3E /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		FACBCF84259F8B450039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +52,8 @@
 			children = (
 				FACBCF73259F777F0039CF3E /* Info.plist */,
 				FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */,
-				FACBCF81259F81630039CF3E /* Polyhedron.swift */,
+				FACBCF81259F81630039CF3E /* Renderer.swift */,
+				FACBCF84259F8B450039CF3E /* Polyhedra.swift */,
 			);
 			path = Ico;
 			sourceTree = "<group>";
@@ -134,7 +137,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */,
-				FACBCF82259F81630039CF3E /* Polyhedron.swift in Sources */,
+				FACBCF82259F81630039CF3E /* Renderer.swift in Sources */,
+				FACBCF85259F8B450039CF3E /* Polyhedra.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
