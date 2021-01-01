@@ -9,6 +9,7 @@ class IcoScreenSaverView: ScreenSaverView {
     private var maxY: CGFloat = .zero
     private var rotation: Int = .zero
     private var cachedRenderings = [CachedRendering]()
+    private lazy var sheetController: ConfigSheetController = ConfigSheetController()
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -24,6 +25,14 @@ class IcoScreenSaverView: ScreenSaverView {
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override public var hasConfigureSheet: Bool {
+            return true
+        }
+        
+        override public var configureSheet: NSWindow? {
+            return sheetController.window
+        }
     
     override func draw(_ rect: NSRect) {
         // clear the screen

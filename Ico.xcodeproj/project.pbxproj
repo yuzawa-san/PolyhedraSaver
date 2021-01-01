@@ -11,6 +11,8 @@
 		FACBCF82259F81630039CF3E /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Renderer.swift */; };
 		FACBCF85259F8B450039CF3E /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF84259F8B450039CF3E /* Polyhedra.swift */; };
 		FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF88259F8F060039CF3E /* thumbnail.tiff */; };
+		FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF8B259F91390039CF3E /* ConfigSheet.xib */; };
+		FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		FACBCF81259F81630039CF3E /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		FACBCF84259F8B450039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
 		FACBCF88259F8F060039CF3E /* thumbnail.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = thumbnail.tiff; sourceTree = "<group>"; };
+		FACBCF8B259F91390039CF3E /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
+		FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */,
 				FACBCF81259F81630039CF3E /* Renderer.swift */,
 				FACBCF84259F8B450039CF3E /* Polyhedra.swift */,
+				FACBCF8B259F91390039CF3E /* ConfigSheet.xib */,
+				FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */,
 			);
 			path = Ico;
 			sourceTree = "<group>";
@@ -130,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */,
+				FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */,
+				FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */,
 				FACBCF82259F81630039CF3E /* Renderer.swift in Sources */,
 				FACBCF85259F8B450039CF3E /* Polyhedra.swift in Sources */,
 			);
