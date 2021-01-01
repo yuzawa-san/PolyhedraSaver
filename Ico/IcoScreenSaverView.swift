@@ -3,10 +3,12 @@ import ScreenSaver
 class IcoScreenSaverView: ScreenSaverView {
 
     private var position: CGPoint = .zero
-    private var velocity: CGVector = .zero
+    private var velocity: CGVector = CGVector(dx: 5, dy: 5)
     private var radius: CGFloat = .zero
     private var maxX: CGFloat = .zero
     private var maxY: CGFloat = .zero
+    private var rotation: Int = .zero
+    private var renderedPolyhedron = [RenderedPolyhedron]()
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -15,9 +17,8 @@ class IcoScreenSaverView: ScreenSaverView {
         maxY = frame.height - 2 * radius
         position.x = CGFloat.random(in: 0..<maxX)
         position.y = CGFloat.random(in: 0..<maxY)
-        velocity.dx = 10
-        velocity.dy = 10
-        animationTimeInterval = 1.0 / 20
+        renderedPolyhedron = POLYHEDRA[0].prerender()
+        animationTimeInterval = 1.0 / 30
     }
 
     required init?(coder decoder: NSCoder) {
@@ -25,15 +26,24 @@ class IcoScreenSaverView: ScreenSaverView {
     }
 
     override func draw(_ rect: NSRect) {
-        let background = NSBezierPath(rect: bounds)
+        // clear the screen
         NSColor.black.setFill()
-        background.fill()
-        
-        let paddleRect = NSRect(x: position.x, y: position.y, width: radius*2, height: radius*2)
-        let paddle = NSBezierPath(rect: paddleRect)
-        NSColor.red.setFill()
-        paddle.fill()
-        
+        bounds.fill()
+        // fetch a cached set of edges
+        let renderedPolygon = renderedPolyhedron[rotation]
+        let points = renderedPolygon.points.map { CGPoint(
+            x:CGFloat(position.x + radius + radius * $0.x),
+            y:CGFloat(position.y + radius - radius * $0.y)) }
+        let path = NSBezierPath()
+        for edge in renderedPolygon.edges {
+            let startPoint = points[edge.startPointIdx]
+            let endPoint = points[edge.endPointIdx]
+            path.move(to: startPoint)
+            path.line(to: endPoint)
+        }
+        renderedPolygon.color.set()
+        path.lineWidth = 1
+        path.stroke()
     }
 
     override func animateOneFrame() {
@@ -50,6 +60,8 @@ class IcoScreenSaverView: ScreenSaverView {
         if(positionY < 0 || positionY > maxY) {
             velocity.dy *= -1
         }
+        
+        rotation = (rotation + 1) % renderedPolyhedron.count
         
         needsDisplay = true
     }
