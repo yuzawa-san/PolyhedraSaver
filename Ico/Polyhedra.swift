@@ -1,5 +1,5 @@
 let POLYHEDRA = [
-    Polyhedron(id: "ico", name: "icosahedron",vertices: [
+    Polyhedron(name: "icosahedron",vertices: [
         [0.00000000,  0.00000000, -0.95105650],
         [0.00000000,  0.85065080, -0.42532537],
         [0.80901698,  0.26286556, -0.42532537],
@@ -32,7 +32,7 @@ let POLYHEDRA = [
                [    7,  8, 11],
                [    8,  9, 11],
                [    9, 10, 11]]),
-    Polyhedron(id: "cube", name: "cube",vertices: [
+    Polyhedron(name: "cube",vertices: [
         [ 0.577,  0.577,  0.577],
         [ 0.577,  0.577, -0.577],
         [ 0.577, -0.577, -0.577],

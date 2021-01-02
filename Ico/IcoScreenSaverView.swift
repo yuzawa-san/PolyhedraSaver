@@ -3,22 +3,33 @@ import ScreenSaver
 class IcoScreenSaverView: ScreenSaverView {
     
     private var position: CGPoint = .zero
-    private var velocity: CGVector = CGVector(dx: 5, dy: 5)
+    private var velocity: CGVector = .zero
     private var radius: CGFloat = .zero
     private var maxX: CGFloat = .zero
     private var maxY: CGFloat = .zero
     private var rotation: Int = .zero
     private var cachedRenderings = [CachedRendering]()
-    private lazy var sheetController: ConfigSheetController = ConfigSheetController()
+    lazy var sheetController: ConfigSheetController = ConfigSheetController()
+    private let defaultsManager = DefaultsManager()
+    private var colorOverride: NSColor?
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        radius = isPreview ? 25 : 150
+        if (isPreview) {
+            radius = 25
+            velocity = CGVector(dx: 5, dy: 5)
+        } else {
+            radius = 150
+            velocity = CGVector(dx: 10, dy: 10)
+        }
         maxX = frame.width - 2 * radius
         maxY = frame.height - 2 * radius
         position.x = CGFloat.random(in: 0..<maxX)
         position.y = CGFloat.random(in: 0..<maxY)
-        cachedRenderings = POLYHEDRA[0].generateCachedRenderings()
+        cachedRenderings = Polyhedron.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
+        if defaultsManager.useColorOverride {
+            colorOverride = defaultsManager.colorOverride
+        }
         animationTimeInterval = 1.0 / 30
     }
     
@@ -26,13 +37,13 @@ class IcoScreenSaverView: ScreenSaverView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var hasConfigureSheet: Bool {
-            return true
-        }
-        
-        override public var configureSheet: NSWindow? {
-            return sheetController.window
-        }
+    override var hasConfigureSheet: Bool {
+        return true
+    }
+    
+    override var configureSheet: NSWindow? {
+        return sheetController.window
+    }
     
     override func draw(_ rect: NSRect) {
         // clear the screen
@@ -52,7 +63,7 @@ class IcoScreenSaverView: ScreenSaverView {
             path.move(to: startPoint)
             path.line(to: endPoint)
         }
-        cachedRendering.color.set()
+        (colorOverride ?? cachedRendering.color).set()
         path.lineWidth = 1
         path.stroke()
     }

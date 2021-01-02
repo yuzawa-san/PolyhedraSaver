@@ -13,6 +13,7 @@
 		FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF88259F8F060039CF3E /* thumbnail.tiff */; };
 		FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF8B259F91390039CF3E /* ConfigSheet.xib */; };
 		FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */; };
+		FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF91259FF4810039CF3E /* DefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FACBCF88259F8F060039CF3E /* thumbnail.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = thumbnail.tiff; sourceTree = "<group>"; };
 		FACBCF8B259F91390039CF3E /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
+		FACBCF91259FF4810039CF3E /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				FACBCF84259F8B450039CF3E /* Polyhedra.swift */,
 				FACBCF8B259F91390039CF3E /* ConfigSheet.xib */,
 				FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */,
+				FACBCF91259FF4810039CF3E /* DefaultsManager.swift */,
 			);
 			path = Ico;
 			sourceTree = "<group>";
@@ -88,6 +91,7 @@
 				FACBCF68259F777F0039CF3E /* Sources */,
 				FACBCF69259F777F0039CF3E /* Frameworks */,
 				FACBCF6A259F777F0039CF3E /* Resources */,
+				FACBCF9425A0032B0039CF3E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -142,6 +146,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FACBCF9425A0032B0039CF3E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/newInputFile",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FACBCF68259F777F0039CF3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -149,6 +174,7 @@
 			files = (
 				FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */,
 				FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */,
+				FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */,
 				FACBCF82259F81630039CF3E /* Renderer.swift in Sources */,
 				FACBCF85259F8B450039CF3E /* Polyhedra.swift in Sources */,
 			);
