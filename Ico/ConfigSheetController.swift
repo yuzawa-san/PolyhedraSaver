@@ -1,12 +1,3 @@
-//
-//  ConfigSheetController.swift
-//  Ico
-//
-//  Created by James Yuzawa on 1/1/21.
-//
-
-import Foundation
-
 import Cocoa
 
 class ConfigSheetController: NSObject {
@@ -25,7 +16,7 @@ class ConfigSheetController: NSObject {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        polyhedronSelection!.addItem(withTitle: "Random")
+        polyhedronSelection!.addItem(withTitle: Polyhedron.randomName)
         for polyhedron in POLYHEDRA {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }

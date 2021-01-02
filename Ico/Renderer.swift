@@ -27,11 +27,14 @@ struct Polyhedron {
     let vertices: [[Float]]
     let faces: [[Int]]
 
+    static let randomName = "Random"
+    static let defaultName = "Icosahedron"
+
     func generateCachedRenderings() -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
         let camera = vector_float3(0, 0, 1)
-        for degrees in (0...359) {
-            let transformation = Polyhedron.rotation_matrix(radians: Float(degrees) * Float.pi / 180.0)
+        for degrees in (0..<360) {
+            let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
             let transformedVertices = vertices.map { transformation*vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
             let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
             var edges = Set<VisibleEdge>()
@@ -60,7 +63,7 @@ struct Polyhedron {
         return renderedPolygons
     }
 
-    static func rotation_matrix(radians: Float) -> matrix_float3x3 {
+    static func transform(radians: Float) -> matrix_float3x3 {
         let cosine = cosf(radians)
         let sine = sinf(radians)
         var transformX = matrix_identity_float3x3
@@ -77,10 +80,13 @@ struct Polyhedron {
     }
 
     static func forName(name: String) -> Polyhedron {
-        if name == "Random" {
+        if name == randomName {
             return POLYHEDRA.randomElement()!
         }
         for polyhedron in POLYHEDRA where polyhedron.name == name {
+            return polyhedron
+        }
+        for polyhedron in POLYHEDRA where polyhedron.name == defaultName {
             return polyhedron
         }
         return POLYHEDRA[0]

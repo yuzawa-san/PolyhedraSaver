@@ -14,7 +14,7 @@ class DefaultsManager {
 
     var polyhedronName: String {
         get {
-            return defaults.string(forKey: "polyhedron_name") ?? "ico"
+            return defaults.string(forKey: "polyhedron_name") ?? Polyhedron.defaultName
         }
         set(value) {
             defaults.setValue(value, forKey: "polyhedron_name")
