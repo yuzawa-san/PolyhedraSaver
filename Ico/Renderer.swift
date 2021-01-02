@@ -4,9 +4,9 @@ import simd
 struct VisibleEdge: Hashable {
     let startPointIdx: Int
     let endPointIdx: Int
-    
+
     init(idx0: Int, idx1: Int) {
-        if (idx0 < idx1) {
+        if idx0 < idx1 {
             startPointIdx = idx0
             endPointIdx = idx1
         } else {
@@ -17,22 +17,22 @@ struct VisibleEdge: Hashable {
 }
 
 struct CachedRendering {
-    let points: Array<CGPoint>
-    let edges: Array<VisibleEdge>
+    let points: [CGPoint]
+    let edges: [VisibleEdge]
     let color: NSColor
 }
 
 struct Polyhedron {
     let name: String
-    let vertices: Array<Array<Float>>
-    let faces: Array<Array<Int>>
-    
-    func generateCachedRenderings() -> Array<CachedRendering> {
+    let vertices: [Array[Float]>
+    let faces: [Array[Int]>
+
+    func generateCachedRenderings() -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
-        let camera = vector_float3(0,0,1)
+        let camera = vector_float3(0, 0, 1)
         for degrees in (0...359) {
-            let transformation = Polyhedron.rotation_matrix(radians:Float(degrees) * 3.1416 / 180.0)
-            let transformedVertices = vertices.map { transformation*vector_float3(x:$0[0], y:$0[1], z:$0[2]) }
+            let transformation = Polyhedron.rotation_matrix(radians: Float(degrees) * 3.1416 / 180.0)
+            let transformedVertices = vertices.map { transformation*vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
             let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
             var edges = Set<VisibleEdge>()
             for face in faces {
@@ -59,23 +59,23 @@ struct Polyhedron {
         }
         return renderedPolygons
     }
-    
-    static func rotation_matrix(radians:Float) -> matrix_float3x3{
-        let cosine = cosf(radians);
-        let sine = sinf(radians);
+
+    static func rotation_matrix(radians: Float) -> matrix_float3x3 {
+        let cosine = cosf(radians)
+        let sine = sinf(radians)
         var mx = matrix_identity_float3x3
-        mx[1,1] = cosine
-        mx[1,2] = sine
-        mx[2,1] = -sine
-        mx[2,2] = cosine
+        mx[1, 1] = cosine
+        mx[1, 2] = sine
+        mx[2, 1] = -sine
+        mx[2, 2] = cosine
         var my = matrix_identity_float3x3
-        my[0,0] = cosine
-        my[2,0] = sine
-        my[0,2] = -sine
-        my[2,2] = cosine
+        my[0, 0] = cosine
+        my[2, 0] = sine
+        my[0, 2] = -sine
+        my[2, 2] = cosine
         return matrix_multiply(mx, my)
     }
-    
+
     static func forName(name: String) -> Polyhedron {
         if name == "Random" {
             return POLYHEDRA.randomElement()!

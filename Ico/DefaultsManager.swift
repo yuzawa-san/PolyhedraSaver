@@ -2,16 +2,16 @@ import ScreenSaver
 
 class DefaultsManager {
     private var defaults: UserDefaults
-    
+
     init() {
         let identifier = Bundle(for: DefaultsManager.self).bundleIdentifier
         defaults = ScreenSaverDefaults.init(forModuleWithName: identifier!)!
     }
-    
+
     func synchronize() {
         defaults.synchronize()
     }
-    
+
     var polyhedronName: String {
         get {
             return defaults.string(forKey: "polyhedron_name") ?? "ico"
@@ -20,7 +20,7 @@ class DefaultsManager {
             defaults.setValue(value, forKey: "polyhedron_name")
         }
     }
-    
+
     var useColorOverride: Bool {
         get {
             return defaults.bool(forKey: "use_color_override")
@@ -29,7 +29,7 @@ class DefaultsManager {
             defaults.setValue(value, forKey: "use_color_override")
         }
     }
-    
+
     var colorOverride: NSColor {
         get {
             guard
@@ -47,6 +47,5 @@ class DefaultsManager {
             }
         }
     }
-    
-    
+
 }

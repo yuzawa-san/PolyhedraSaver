@@ -1,7 +1,7 @@
 import ScreenSaver
 
 class IcoScreenSaverView: ScreenSaverView {
-    
+
     private var position: CGPoint = .zero
     private var velocity: CGVector = .zero
     private var radius: CGFloat = .zero
@@ -12,10 +12,10 @@ class IcoScreenSaverView: ScreenSaverView {
     lazy var sheetController: ConfigSheetController = ConfigSheetController()
     private let defaultsManager = DefaultsManager()
     private var colorOverride: NSColor?
-    
+
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        if (isPreview) {
+        if isPreview {
             radius = 25
             velocity = CGVector(dx: 5, dy: 5)
         } else {
@@ -32,19 +32,19 @@ class IcoScreenSaverView: ScreenSaverView {
         }
         animationTimeInterval = 1.0 / 30
     }
-    
+
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override var hasConfigureSheet: Bool {
         return true
     }
-    
+
     override var configureSheet: NSWindow? {
         return sheetController.window
     }
-    
+
     override func draw(_ rect: NSRect) {
         // clear the screen
         NSColor.black.setFill()
@@ -53,8 +53,8 @@ class IcoScreenSaverView: ScreenSaverView {
         let cachedRendering = cachedRenderings[rotation]
         // place points on screen relative to object position
         let points = cachedRendering.points.map { CGPoint(
-            x:CGFloat(position.x + radius + radius * $0.x),
-            y:CGFloat(position.y + radius - radius * $0.y)) }
+            x: CGFloat(position.x + radius + radius * $0.x),
+            y: CGFloat(position.y + radius - radius * $0.y)) }
         // draw edges
         let path = NSBezierPath()
         for edge in cachedRendering.edges {
@@ -67,23 +67,23 @@ class IcoScreenSaverView: ScreenSaverView {
         path.lineWidth = 1
         path.stroke()
     }
-    
+
     override func animateOneFrame() {
         super.animateOneFrame()
         // update object position
         position.x += velocity.dx
         let positionX = position.x
-        if(positionX < 0 || positionX > maxX) {
+        if positionX < 0 || positionX > maxX {
             velocity.dx *= -1
         }
         position.y += velocity.dy
         let positionY = position.y
-        if(positionY < 0 || positionY > maxY) {
+        if positionY < 0 || positionY > maxY {
             velocity.dy *= -1
         }
         // update object rotation
         rotation = (rotation + 1) % cachedRenderings.count
         needsDisplay = true
     }
-    
+
 }
