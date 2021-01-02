@@ -7,6 +7,7 @@ class ConfigSheetController: NSObject {
     @IBOutlet var singleColorWell: NSColorWell?
 
     private let defaultsManager = DefaultsManager()
+    private let projectUrl = "https://github.com/yuzawa-san/ico-saver"
 
     override init() {
         super.init()
@@ -17,7 +18,9 @@ class ConfigSheetController: NSObject {
     override func awakeFromNib() {
         super.awakeFromNib()
         polyhedronSelection!.addItem(withTitle: Polyhedron.randomName)
-        for polyhedron in POLYHEDRA {
+        for polyhedron in POLYHEDRA.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
+            return polyhedron0.name < polyhedron1.name
+        }) {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }
         polyhedronSelection!.selectItem(withTitle: defaultsManager.polyhedronName)
@@ -43,7 +46,7 @@ class ConfigSheetController: NSObject {
     }
 
     @IBAction func info(_ sender: AnyObject) {
-        if let url = URL(string: "https://github.com/yuzawa-san/ico-saver") {
+        if let url = URL(string: projectUrl) {
             NSWorkspace.shared.open(url)
         }
     }
