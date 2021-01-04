@@ -30,9 +30,9 @@ struct Polyhedron: Codable {
     func generateCachedRenderings() -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
         let camera = vector_float3(0, 0, 1)
-        for degrees in (0..<360) {
+        for degrees in 0 ..< 360 {
             let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
-            let transformedVertices = vertices.map { transformation*vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
+            let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
             let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
             var edges = Set<VisibleEdge>()
             for face in faces {
@@ -49,7 +49,7 @@ struct Polyhedron: Codable {
                 }
                 edges.insert(VisibleEdge(idx0: face.first!, idx1: face.last!))
                 for (vertexIdx, idx1) in face.dropLast().enumerated() {
-                    let idx0 = face[vertexIdx+1]
+                    let idx0 = face[vertexIdx + 1]
                     edges.insert(VisibleEdge(idx0: idx0, idx1: idx1))
                 }
             }

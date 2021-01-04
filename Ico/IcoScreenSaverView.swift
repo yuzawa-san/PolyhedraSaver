@@ -1,7 +1,6 @@
 import ScreenSaver
 
 class IcoScreenSaverView: ScreenSaverView {
-
     private var position: CGPoint = .zero
     private var velocity: CGVector = .zero
     private var radius: CGFloat = .zero
@@ -9,7 +8,7 @@ class IcoScreenSaverView: ScreenSaverView {
     private var maxY: CGFloat = .zero
     private var rotation: Int = .zero
     private var cachedRenderings = [CachedRendering]()
-    lazy var sheetController: ConfigSheetController = ConfigSheetController()
+    lazy var sheetController = ConfigSheetController()
     private let defaultsManager = DefaultsManager()
     private var colorOverride: NSColor?
 
@@ -24,8 +23,8 @@ class IcoScreenSaverView: ScreenSaverView {
         }
         maxX = frame.width - 2 * radius
         maxY = frame.height - 2 * radius
-        position.x = CGFloat.random(in: 0..<maxX)
-        position.y = CGFloat.random(in: 0..<maxY)
+        position.x = CGFloat.random(in: 0 ..< maxX)
+        position.y = CGFloat.random(in: 0 ..< maxY)
         animationTimeInterval = 1.0 / 30
     }
 
@@ -39,7 +38,8 @@ class IcoScreenSaverView: ScreenSaverView {
         super.startAnimation()
     }
 
-    required init?(coder decoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -51,7 +51,7 @@ class IcoScreenSaverView: ScreenSaverView {
         return sheetController.window
     }
 
-    override func draw(_ rect: NSRect) {
+    override func draw(_: NSRect) {
         // clear the screen
         NSColor.black.setFill()
         bounds.fill()
@@ -64,7 +64,8 @@ class IcoScreenSaverView: ScreenSaverView {
         // place points on screen relative to object position
         let points = cachedRendering.points.map { CGPoint(
             x: CGFloat(position.x + radius + radius * $0.x),
-            y: CGFloat(position.y + radius - radius * $0.y)) }
+            y: CGFloat(position.y + radius - radius * $0.y)
+        ) }
         // draw edges
         let path = NSBezierPath()
         for edge in cachedRendering.edges {
@@ -95,5 +96,4 @@ class IcoScreenSaverView: ScreenSaverView {
         rotation = (rotation + 1) % cachedRenderings.count
         needsDisplay = true
     }
-
 }

@@ -5,7 +5,7 @@ class DefaultsManager {
 
     init() {
         let identifier = Bundle(for: DefaultsManager.self).bundleIdentifier
-        defaults = ScreenSaverDefaults.init(forModuleWithName: identifier!)!
+        defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
     }
 
     func synchronize() {
@@ -47,5 +47,4 @@ class DefaultsManager {
             }
         }
     }
-
 }

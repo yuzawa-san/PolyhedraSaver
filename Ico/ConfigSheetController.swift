@@ -19,7 +19,7 @@ class ConfigSheetController: NSObject {
         super.awakeFromNib()
         polyhedronSelection!.addItem(withTitle: Polyhedra.randomName)
         for polyhedron in Polyhedra.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
-            return polyhedron0.name < polyhedron1.name
+            polyhedron0.name < polyhedron1.name
         }) {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }
@@ -33,7 +33,7 @@ class ConfigSheetController: NSObject {
         window?.sheetParent?.endSheet(window!)
     }
 
-    @IBAction func ok(_ sender: AnyObject) {
+    @IBAction func ok(_: AnyObject) {
         defaultsManager.polyhedronName = polyhedronSelection!.titleOfSelectedItem!
         defaultsManager.useColorOverride = singleColorCheckbox!.state == .on
         defaultsManager.colorOverride = singleColorWell!.color
@@ -41,11 +41,11 @@ class ConfigSheetController: NSObject {
         dismiss()
     }
 
-    @IBAction func cancel(_ sender: AnyObject) {
+    @IBAction func cancel(_: AnyObject) {
         dismiss()
     }
 
-    @IBAction func info(_ sender: AnyObject) {
+    @IBAction func info(_: AnyObject) {
         if let url = URL(string: projectUrl) {
             NSWorkspace.shared.open(url)
         }
