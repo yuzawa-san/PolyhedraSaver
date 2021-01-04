@@ -11,14 +11,14 @@ class ConfigSheetController: NSObject {
 
     override init() {
         super.init()
-        let myBundle = Bundle(for: ConfigSheetController.self)
-        myBundle.loadNibNamed("ConfigSheet", owner: self, topLevelObjects: nil)
+        let currentBundle = Bundle(for: ConfigSheetController.self)
+        currentBundle.loadNibNamed("ConfigSheet", owner: self, topLevelObjects: nil)
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        polyhedronSelection!.addItem(withTitle: Polyhedron.randomName)
-        for polyhedron in POLYHEDRA.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
+        polyhedronSelection!.addItem(withTitle: Polyhedra.randomName)
+        for polyhedron in Polyhedra.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             return polyhedron0.name < polyhedron1.name
         }) {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)

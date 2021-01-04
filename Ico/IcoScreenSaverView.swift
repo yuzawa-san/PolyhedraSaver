@@ -26,11 +26,17 @@ class IcoScreenSaverView: ScreenSaverView {
         maxY = frame.height - 2 * radius
         position.x = CGFloat.random(in: 0..<maxX)
         position.y = CGFloat.random(in: 0..<maxY)
-        cachedRenderings = Polyhedron.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
+        animationTimeInterval = 1.0 / 30
+    }
+
+    override func startAnimation() {
+        cachedRenderings = Polyhedra.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
         if defaultsManager.useColorOverride {
             colorOverride = defaultsManager.colorOverride
+        } else {
+            colorOverride = nil
         }
-        animationTimeInterval = 1.0 / 30
+        super.startAnimation()
     }
 
     required init?(coder decoder: NSCoder) {
@@ -49,6 +55,10 @@ class IcoScreenSaverView: ScreenSaverView {
         // clear the screen
         NSColor.black.setFill()
         bounds.fill()
+        if cachedRenderings.isEmpty {
+            // we have not loaded the settings yet
+            return
+        }
         // fetch a cached rendering
         let cachedRendering = cachedRenderings[rotation]
         // place points on screen relative to object position

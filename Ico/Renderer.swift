@@ -22,13 +22,10 @@ struct CachedRendering {
     let color: NSColor
 }
 
-struct Polyhedron {
+struct Polyhedron: Codable {
     let name: String
     let vertices: [[Float]]
     let faces: [[Int]]
-
-    static let randomName = "Random"
-    static let defaultName = "Icosahedron"
 
     func generateCachedRenderings() -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
@@ -77,18 +74,5 @@ struct Polyhedron {
         transformY[0, 2] = -sine
         transformY[2, 2] = cosine
         return matrix_multiply(transformX, transformY)
-    }
-
-    static func forName(name: String) -> Polyhedron {
-        if name == randomName {
-            return POLYHEDRA.randomElement()!
-        }
-        for polyhedron in POLYHEDRA where polyhedron.name == name {
-            return polyhedron
-        }
-        for polyhedron in POLYHEDRA where polyhedron.name == defaultName {
-            return polyhedron
-        }
-        return POLYHEDRA[0]
     }
 }
