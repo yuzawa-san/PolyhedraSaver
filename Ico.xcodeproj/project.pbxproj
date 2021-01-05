@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		FA8AD16525A3C07A0067F17B /* polyhedra.json in Resources */ = {isa = PBXBuildFile; fileRef = FA8AD16425A3C07A0067F17B /* polyhedra.json */; };
 		FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */; };
-		FACBCF82259F81630039CF3E /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Renderer.swift */; };
+		FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Polyhedra.swift */; };
 		FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF88259F8F060039CF3E /* thumbnail.tiff */; };
 		FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF8B259F91390039CF3E /* ConfigSheet.xib */; };
 		FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */; };
 		FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF91259FF4810039CF3E /* DefaultsManager.swift */; };
-		FAE24FCB25A3CEEB00CC12F1 /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE24FCA25A3CEEB00CC12F1 /* Polyhedra.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +21,11 @@
 		FACBCF6C259F777F0039CF3E /* Ico.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Ico.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACBCF73259F777F0039CF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcoScreenSaverView.swift; sourceTree = "<group>"; };
-		FACBCF81259F81630039CF3E /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		FACBCF81259F81630039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
 		FACBCF88259F8F060039CF3E /* thumbnail.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = thumbnail.tiff; sourceTree = "<group>"; };
 		FACBCF8B259F91390039CF3E /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
 		FACBCF91259FF4810039CF3E /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
-		FAE24FCA25A3CEEB00CC12F1 /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +61,11 @@
 				FACBCF88259F8F060039CF3E /* thumbnail.tiff */,
 				FACBCF73259F777F0039CF3E /* Info.plist */,
 				FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */,
-				FACBCF81259F81630039CF3E /* Renderer.swift */,
+				FACBCF81259F81630039CF3E /* Polyhedra.swift */,
 				FACBCF8B259F91390039CF3E /* ConfigSheet.xib */,
 				FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */,
 				FACBCF91259FF4810039CF3E /* DefaultsManager.swift */,
 				FA8AD16425A3C07A0067F17B /* polyhedra.json */,
-				FAE24FCA25A3CEEB00CC12F1 /* Polyhedra.swift */,
 			);
 			path = Ico;
 			sourceTree = "<group>";
@@ -179,8 +176,7 @@
 				FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */,
 				FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */,
 				FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */,
-				FACBCF82259F81630039CF3E /* Renderer.swift in Sources */,
-				FAE24FCB25A3CEEB00CC12F1 /* Polyhedra.swift in Sources */,
+				FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

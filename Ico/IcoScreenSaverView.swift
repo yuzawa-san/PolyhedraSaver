@@ -32,7 +32,7 @@ class IcoScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         // load cached renderings and color
-        cachedRenderings = Polyhedra.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
+        cachedRenderings = PolyhedraRegistry.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
         if defaultsManager.useColorOverride {
             colorOverride = defaultsManager.colorOverride
         } else {

@@ -18,12 +18,14 @@ class ConfigSheetController: NSObject {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        polyhedronSelection!.addItem(withTitle: Polyhedra.randomName)
-        for polyhedron in Polyhedra.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
+        // fill up polyhedron menu
+        polyhedronSelection!.addItem(withTitle: PolyhedraRegistry.randomName)
+        for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }
+        // load settings into UI
         polyhedronSelection!.selectItem(withTitle: defaultsManager.polyhedronName)
         colorOverrideCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
         colorOverrideWell!.color = defaultsManager.colorOverride
@@ -38,6 +40,7 @@ class ConfigSheetController: NSObject {
     }
 
     @IBAction func ok(_: AnyObject) {
+        // save settings
         defaultsManager.polyhedronName = polyhedronSelection!.titleOfSelectedItem!
         defaultsManager.useColorOverride = colorOverrideCheckbox!.state == .on
         defaultsManager.colorOverride = colorOverrideWell!.color
