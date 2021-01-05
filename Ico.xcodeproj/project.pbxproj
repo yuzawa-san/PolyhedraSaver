@@ -10,10 +10,10 @@
 		FA8AD16525A3C07A0067F17B /* polyhedra.json in Resources */ = {isa = PBXBuildFile; fileRef = FA8AD16425A3C07A0067F17B /* polyhedra.json */; };
 		FACBCF7D259F77AE0039CF3E /* IcoScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */; };
 		FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Polyhedra.swift */; };
-		FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF88259F8F060039CF3E /* thumbnail.tiff */; };
 		FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF8B259F91390039CF3E /* ConfigSheet.xib */; };
 		FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */; };
 		FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF91259FF4810039CF3E /* DefaultsManager.swift */; };
+		FAE24FE325A3F0C000CC12F1 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE24FE225A3F0C000CC12F1 /* thumbnail.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +22,10 @@
 		FACBCF73259F777F0039CF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcoScreenSaverView.swift; sourceTree = "<group>"; };
 		FACBCF81259F81630039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
-		FACBCF88259F8F060039CF3E /* thumbnail.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = thumbnail.tiff; sourceTree = "<group>"; };
 		FACBCF8B259F91390039CF3E /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
 		FACBCF91259FF4810039CF3E /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
+		FAE24FE225A3F0C000CC12F1 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 		FACBCF6E259F777F0039CF3E /* Ico */ = {
 			isa = PBXGroup;
 			children = (
-				FACBCF88259F8F060039CF3E /* thumbnail.tiff */,
+				FAE24FE225A3F0C000CC12F1 /* thumbnail.png */,
 				FACBCF73259F777F0039CF3E /* Info.plist */,
 				FACBCF7C259F77AE0039CF3E /* IcoScreenSaverView.swift */,
 				FACBCF81259F81630039CF3E /* Polyhedra.swift */,
@@ -139,9 +139,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACBCF89259F8F060039CF3E /* thumbnail.tiff in Resources */,
 				FA8AD16525A3C07A0067F17B /* polyhedra.json in Resources */,
 				FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */,
+				FAE24FE325A3F0C000CC12F1 /* thumbnail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
