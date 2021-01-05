@@ -21,14 +21,17 @@ class IcoScreenSaverView: ScreenSaverView {
             radius = 150
             velocity = CGVector(dx: 10, dy: 10)
         }
+        // make sure polyhedron (2 * radius in width) does not got off screen
         maxX = frame.width - 2 * radius
         maxY = frame.height - 2 * radius
+        // place at a random point in the frame
         position.x = CGFloat.random(in: 0 ..< maxX)
         position.y = CGFloat.random(in: 0 ..< maxY)
         animationTimeInterval = 1.0 / 30
     }
 
     override func startAnimation() {
+        // load cached renderings and color
         cachedRenderings = Polyhedra.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
         if defaultsManager.useColorOverride {
             colorOverride = defaultsManager.colorOverride
