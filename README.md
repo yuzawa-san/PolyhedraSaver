@@ -20,9 +20,12 @@ The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates o
 
 ## Installation
 
+The minimum build target is macOS 10.13.
+
 Download a [release ZIP archive](https://github.com/yuzawa-san/ico-saver/releases) or build the application locally.
 
-Open the `Ico.saver` file.
+Opne the ZIP archive to decompress. Control-click the the `Ico.saver` file and open via the context menu.
+The system may complain about the origin of the file since it was downloaded from the internet.
 
 Due to the lack of code signing (that costs money), it will likely be necessary to alter security settings to allow installation:
 
