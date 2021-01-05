@@ -12,9 +12,9 @@ It is inspired by X11's [ico](https://www.x.org/releases/unsupported/programs/ic
 
 Dozens of common polyhedra are included:
 
-* Regular Polyhedra (R)
-* Semi-Regular Polyhedra (S)
-* Johnson Solids (J) _source uses `N` designation_
+* [Regular Polyhedra](https://en.wikipedia.org/wiki/Regular_polyhedron) (R)
+* [Semi-Regular Polyhedra](https://en.wikipedia.org/wiki/Semiregular_polyhedron) (S)
+* [Johnson Solids](https://en.wikipedia.org/wiki/Johnson_solid) (J) _source uses `N` designation_
 
 The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates of all regular-faced convex polyhedra](http://mitani.cs.tsukuba.ac.jp/polyhedron/) (1992)
 
