@@ -3,15 +3,16 @@ import Cocoa
 class ConfigSheetController: NSObject {
     @IBOutlet var window: NSWindow?
     @IBOutlet var polyhedronSelection: NSPopUpButton?
-    @IBOutlet var singleColorCheckbox: NSButton?
-    @IBOutlet var singleColorWell: NSColorWell?
+    @IBOutlet var colorOverrideCheckbox: NSButton?
+    @IBOutlet var colorOverrideWell: NSColorWell?
+    @IBOutlet var informationLabel: NSTextField?
 
     private let defaultsManager = DefaultsManager()
     private let projectUrl = "https://github.com/yuzawa-san/ico-saver"
+    private let currentBundle = Bundle(for: ConfigSheetController.self)
 
     override init() {
         super.init()
-        let currentBundle = Bundle(for: ConfigSheetController.self)
         currentBundle.loadNibNamed("ConfigSheet", owner: self, topLevelObjects: nil)
     }
 
@@ -24,8 +25,11 @@ class ConfigSheetController: NSObject {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }
         polyhedronSelection!.selectItem(withTitle: defaultsManager.polyhedronName)
-        singleColorCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
-        singleColorWell!.color = defaultsManager.colorOverride
+        colorOverrideCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
+        colorOverrideWell!.color = defaultsManager.colorOverride
+        if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            informationLabel!.stringValue = "Ico (Version " + text + ") by yuzawa-san"
+        }
     }
 
     private func dismiss() {
@@ -35,8 +39,8 @@ class ConfigSheetController: NSObject {
 
     @IBAction func ok(_: AnyObject) {
         defaultsManager.polyhedronName = polyhedronSelection!.titleOfSelectedItem!
-        defaultsManager.useColorOverride = singleColorCheckbox!.state == .on
-        defaultsManager.colorOverride = singleColorWell!.color
+        defaultsManager.useColorOverride = colorOverrideCheckbox!.state == .on
+        defaultsManager.colorOverride = colorOverrideWell!.color
         defaultsManager.synchronize()
         dismiss()
     }
