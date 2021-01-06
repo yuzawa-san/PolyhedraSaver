@@ -67,7 +67,7 @@ class IcoScreenSaverView: ScreenSaverView {
         // place points on screen relative to object position
         let points = cachedRendering.points.map { CGPoint(
             x: CGFloat(position.x + radius + radius * $0.x),
-            y: CGFloat(position.y + radius - radius * $0.y)
+            y: CGFloat(position.y + radius - radius * -$0.y)
         ) }
         // draw edges
         let path = NSBezierPath()
