@@ -91,7 +91,8 @@
 				FACBCF68259F777F0039CF3E /* Sources */,
 				FACBCF69259F777F0039CF3E /* Frameworks */,
 				FACBCF6A259F777F0039CF3E /* Resources */,
-				FACBCF9425A0032B0039CF3E /* ShellScript */,
+				FACBCF9425A0032B0039CF3E /* SwiftLint */,
+				FA205FC025A923AA00E734CC /* Set Git Version */,
 			);
 			buildRules = (
 			);
@@ -148,7 +149,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		FACBCF9425A0032B0039CF3E /* ShellScript */ = {
+		FA205FC025A923AA00E734CC /* Set Git Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Git Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Use Xcode's copy of the Git binary\nGIT=`xcrun -find git`\n\n# Use the commit count as CFBundleVersion\nGIT_COMMIT_COUNT=`${GIT} rev-list --count HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${GIT_COMMIT_COUNT}\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n\n## Use the last annotated tag as CFBundleShortVersionString\nGIT_TAG=`${GIT} describe --tags --always --dirty | sed 's/^v//g'`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${GIT_TAG}\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
+		};
+		FACBCF9425A0032B0039CF3E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -158,6 +177,7 @@
 			inputPaths = (
 				"$(SRCROOT)/newInputFile",
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -300,7 +320,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 0;
 				INFOPLIST_FILE = Ico/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -308,7 +328,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.Ico;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -323,7 +343,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 0;
 				INFOPLIST_FILE = Ico/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -331,7 +351,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.Ico;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
