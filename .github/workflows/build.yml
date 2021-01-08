@@ -18,10 +18,8 @@ jobs:
         run: brew bundle
       - name: build
         run: xcodebuild clean build -configuration Release
-      - name: zip
-        run: cd build/release && zip -r Ico.saver.zip Ico.saver
       - name: 'Store Artifact'
         uses: actions/upload-artifact@v2
         with:
           name: Ico.saver
-          path: build/release/Ico.saver.zip
+          path: build/release/Ico.saver
