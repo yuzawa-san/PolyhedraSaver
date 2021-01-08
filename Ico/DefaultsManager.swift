@@ -30,6 +30,15 @@ class DefaultsManager {
         }
     }
 
+    var showPolyhedronName: Bool {
+        get {
+            return defaults.bool(forKey: "show_polyhedron_name")
+        }
+        set(value) {
+            defaults.setValue(value, forKey: "show_polyhedron_name")
+        }
+    }
+
     var colorOverride: NSColor {
         get {
             guard

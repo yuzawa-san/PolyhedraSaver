@@ -3,6 +3,7 @@ import Cocoa
 class ConfigSheetController: NSObject {
     @IBOutlet var window: NSWindow?
     @IBOutlet var polyhedronSelection: NSPopUpButton?
+    @IBOutlet var showPolyhedronNameCheckbox: NSButton?
     @IBOutlet var colorOverrideCheckbox: NSButton?
     @IBOutlet var colorOverrideWell: NSColorWell?
     @IBOutlet var informationLabel: NSTextField?
@@ -27,6 +28,7 @@ class ConfigSheetController: NSObject {
         }
         // load settings into UI
         polyhedronSelection!.selectItem(withTitle: defaultsManager.polyhedronName)
+        showPolyhedronNameCheckbox!.state = defaultsManager.showPolyhedronName ? .on : .off
         colorOverrideCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
         colorOverrideWell!.color = defaultsManager.colorOverride
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -42,6 +44,7 @@ class ConfigSheetController: NSObject {
     @IBAction func ok(_: AnyObject) {
         // save settings
         defaultsManager.polyhedronName = polyhedronSelection!.titleOfSelectedItem!
+        defaultsManager.showPolyhedronName = showPolyhedronNameCheckbox!.state == .on
         defaultsManager.useColorOverride = colorOverrideCheckbox!.state == .on
         defaultsManager.colorOverride = colorOverrideWell!.color
         defaultsManager.synchronize()

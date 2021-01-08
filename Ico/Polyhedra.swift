@@ -119,7 +119,7 @@ class PolyhedraRegistry {
         return loaded
     }
 
-    static func forName(name: String) -> Polyhedron {
+    static func forName(_ name: String) -> Polyhedron {
         if name == randomName {
             return all.randomElement()!
         }

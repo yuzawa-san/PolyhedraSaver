@@ -7,16 +7,22 @@ class IcoScreenSaverView: ScreenSaverView {
     private var maxX: CGFloat = .zero
     private var maxY: CGFloat = .zero
     private var rotation: Int = .zero
+    private var name: String = ""
     private var cachedRenderings = [CachedRendering]()
     lazy var sheetController = ConfigSheetController()
     private let defaultsManager = DefaultsManager()
     private var colorOverride: NSColor?
+    private var showPolyhedronName: Bool = false
+    private var textRect: NSRect = .zero
+    private var textAttributes: [NSAttributedString.Key: Any] = .init()
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
+        var fontSize: CGFloat = 16
         if isPreview {
             radius = 25
             velocity = CGVector(dx: 5, dy: 5)
+            fontSize = 5
         } else {
             radius = 150
             velocity = CGVector(dx: 10, dy: 10)
@@ -27,17 +33,28 @@ class IcoScreenSaverView: ScreenSaverView {
         // place at a random point in the frame
         position.x = CGFloat.random(in: 0 ..< maxX)
         position.y = CGFloat.random(in: 0 ..< maxY)
+        // configure text
+        let font = NSFont.systemFont(ofSize: fontSize)
+        textRect = NSRect(x: fontSize, y: fontSize, width: frame.width, height: fontSize * 1.5)
+        let color = NSColor(calibratedWhite: 0.25, alpha: 1.0)
+        textAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: color
+        ]
         animationTimeInterval = 1.0 / 30
     }
 
     override func startAnimation() {
         // load cached renderings and color
-        cachedRenderings = PolyhedraRegistry.forName(name: defaultsManager.polyhedronName).generateCachedRenderings()
+        let polyhedron = PolyhedraRegistry.forName(defaultsManager.polyhedronName)
+        name = polyhedron.name
+        cachedRenderings = polyhedron.generateCachedRenderings()
         if defaultsManager.useColorOverride {
             colorOverride = defaultsManager.colorOverride
         } else {
             colorOverride = nil
         }
+        showPolyhedronName = defaultsManager.showPolyhedronName
         super.startAnimation()
     }
 
@@ -80,6 +97,10 @@ class IcoScreenSaverView: ScreenSaverView {
         (colorOverride ?? cachedRendering.color).set()
         path.lineWidth = 1
         path.stroke()
+        // draw polyhedron name
+        if showPolyhedronName {
+            name.draw(in: textRect, withAttributes: textAttributes)
+        }
     }
 
     override func animateOneFrame() {
