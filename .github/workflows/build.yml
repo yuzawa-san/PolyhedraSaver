@@ -18,8 +18,10 @@ jobs:
         run: brew bundle
       - name: build
         run: xcodebuild clean build -configuration Release
+      - name: Stage Artifact
+        run: mkdir bundle && cp -r build/Release/Ico.saver bundle/
       - name: 'Store Artifact'
         uses: actions/upload-artifact@v2
         with:
           name: Ico.saver
-          path: build/release/Ico.saver
+          path: bundle/
