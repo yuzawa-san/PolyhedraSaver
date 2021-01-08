@@ -69,9 +69,12 @@ struct Polyhedron: Codable {
 
     private static let initialTransform = createInitialTransform()
 
-    // rotate 45 degrees in X and Y axis
+    // reflect and rotate 45 degrees in X and Y axis
+    // this is purely subjective to give a nice view of the objects.
     static func createInitialTransform() -> matrix_float3x3 {
         let value = sqrtf(2) / 2.0
+        var reflect = matrix_identity_float3x3
+        reflect[1, 1] = -1
         var transformX = matrix_identity_float3x3
         transformX[1, 1] = value
         transformX[1, 2] = value
@@ -82,7 +85,7 @@ struct Polyhedron: Codable {
         transformY[2, 0] = value
         transformY[0, 2] = -value
         transformY[2, 2] = value
-        return transformX * transformY
+        return transformX * reflect * transformY
     }
 
     // rotate in the Z axis
