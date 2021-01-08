@@ -67,21 +67,34 @@ struct Polyhedron: Codable {
         return renderedPolygons
     }
 
-    // the 3d tranformation is multiple rotations
+    private static let initialTransform = createInitialTransform()
+
+    // rotate 45 degrees in X and Y axis
+    static func createInitialTransform() -> matrix_float3x3 {
+        let value = sqrtf(2) / 2.0
+        var transformX = matrix_identity_float3x3
+        transformX[1, 1] = value
+        transformX[1, 2] = value
+        transformX[2, 1] = -value
+        transformX[2, 2] = value
+        var transformY = matrix_identity_float3x3
+        transformY[0, 0] = value
+        transformY[2, 0] = value
+        transformY[0, 2] = -value
+        transformY[2, 2] = value
+        return transformX * transformY
+    }
+
+    // rotate in the Z axis
     static func transform(radians: Float) -> matrix_float3x3 {
         let cosine = cosf(radians)
         let sine = sinf(radians)
-        var transformX = matrix_identity_float3x3
-        transformX[1, 1] = cosine
-        transformX[1, 2] = sine
-        transformX[2, 1] = -sine
-        transformX[2, 2] = cosine
-        var transformY = matrix_identity_float3x3
-        transformY[0, 0] = cosine
-        transformY[2, 0] = sine
-        transformY[0, 2] = -sine
-        transformY[2, 2] = cosine
-        return matrix_multiply(transformX, transformY)
+        var transformZ = matrix_identity_float3x3
+        transformZ[0, 0] = cosine
+        transformZ[1, 1] = cosine
+        transformZ[0, 1] = sine
+        transformZ[1, 0] = -sine
+        return initialTransform * transformZ
     }
 }
 
