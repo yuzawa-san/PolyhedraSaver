@@ -15,6 +15,8 @@ Dozens of common polyhedra are included:
 * [Regular Polyhedra](https://en.wikipedia.org/wiki/Regular_polyhedron) (R)
 * [Semi-Regular Polyhedra](https://en.wikipedia.org/wiki/Semiregular_polyhedron) (S)
 * [Johnson Solids](https://en.wikipedia.org/wiki/Johnson_solid) (J) _source uses `N` designation_
+* [Prisms](https://en.wikipedia.org/wiki/Prism_%28geometry%29) (P) - first ten (of infinite)
+* [Antiprisms](https://en.wikipedia.org/wiki/Antiprism) (A) - first ten (of infinite)
 
 The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates of all regular-faced convex polyhedra](http://mitani.cs.tsukuba.ac.jp/polyhedron/) (1992)
 
