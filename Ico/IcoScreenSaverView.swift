@@ -39,7 +39,7 @@ class IcoScreenSaverView: ScreenSaverView {
         let color = NSColor(calibratedWhite: 0.25, alpha: 1.0)
         textAttributes = [
             NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: color
+            NSAttributedString.Key.foregroundColor: color,
         ]
         animationTimeInterval = 1.0 / 30
     }
