@@ -1,14 +1,14 @@
 # Ico-saver
 by yuzawa-san
 
-![Example](Ico/thumbnail.png)
+![Example](demo.gif)
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/yuzawa-san/ico-saver)](https://github.com/yuzawa-san/ico-saver/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/yuzawa-san/ico-saver/total)](https://github.com/yuzawa-san/ico-saver/releases)
 [![build](https://github.com/yuzawa-san/ico-saver/workflows/build/badge.svg)](https://github.com/yuzawa-san/ico-saver/actions)
 
 This is a macOS screensaver with various convex polyhedra bouncing across the screen.
-It is inspired by X11's [ico](https://www.x.org/releases/unsupported/programs/ico/) and [mxico](https://people.freebsd.org/~maho/mxico/Tamentai.html)
+It is inspired by X11's [ico](https://www.x.org/releases/unsupported/programs/ico/) and [mxico](https://people.freebsd.org/~maho/mxico/Tamentai.html).
 
 Dozens of common polyhedra are included:
 
@@ -26,7 +26,7 @@ The minimum build target is macOS 10.13.
 
 Download a [release ZIP archive](https://github.com/yuzawa-san/ico-saver/releases) or build the application locally.
 
-Opne the ZIP archive to decompress. Control-click the the `Ico.saver` file and open via the context menu.
+Open the ZIP archive to decompress. Control-click the the `Ico.saver` file and open via the context menu.
 The system may complain about the origin of the file since it was downloaded from the internet.
 
 Due to the lack of code signing (that costs money), it will likely be necessary to alter security settings to allow installation:
@@ -34,6 +34,10 @@ Due to the lack of code signing (that costs money), it will likely be necessary 
 ```
 xattr -d "com.apple.quarantine" Ico.saver
 ```
+
+### Homebrew
+
+Ideally, this project would be distributed via Homebrew, however that is not possible at this point in time. Please star this project if you want a homebrew distribution as they require a projects to have a certain provenance to be added.
 
 ## Building
 
