@@ -1,4 +1,4 @@
-# PolyhedraScreenSaver
+# PolyhedraSaver
 by yuzawa-san
 
 ![Example](demo.gif)

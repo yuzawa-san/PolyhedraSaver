@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		FA8AD16425A3C07A0067F17B /* polyhedra.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = polyhedra.json; sourceTree = "<group>"; };
-		FACBCF6C259F777F0039CF3E /* PolyhedraScreenSaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolyhedraScreenSaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACBCF6C259F777F0039CF3E /* Polyhedra.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Polyhedra.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACBCF73259F777F0039CF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACBCF7C259F77AE0039CF3E /* PolyhedraScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedraScreenSaverView.swift; sourceTree = "<group>"; };
 		FACBCF81259F81630039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		FACBCF62259F777F0039CF3E = {
 			isa = PBXGroup;
 			children = (
-				FACBCF6E259F777F0039CF3E /* PolyhedraScreenSaver */,
+				FACBCF6E259F777F0039CF3E /* Polyhedra */,
 				FACBCF6D259F777F0039CF3E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,12 +50,12 @@
 		FACBCF6D259F777F0039CF3E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FACBCF6C259F777F0039CF3E /* PolyhedraScreenSaver.saver */,
+				FACBCF6C259F777F0039CF3E /* Polyhedra.saver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FACBCF6E259F777F0039CF3E /* PolyhedraScreenSaver */ = {
+		FACBCF6E259F777F0039CF3E /* Polyhedra */ = {
 			isa = PBXGroup;
 			children = (
 				FAE24FE225A3F0C000CC12F1 /* thumbnail.png */,
@@ -67,7 +67,7 @@
 				FACBCF91259FF4810039CF3E /* DefaultsManager.swift */,
 				FA8AD16425A3C07A0067F17B /* polyhedra.json */,
 			);
-			path = PolyhedraScreenSaver;
+			path = Polyhedra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +83,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		FACBCF6B259F777F0039CF3E /* PolyhedraScreenSaver */ = {
+		FACBCF6B259F777F0039CF3E /* Polyhedra */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FACBCF76259F777F0039CF3E /* Build configuration list for PBXNativeTarget "PolyhedraScreenSaver" */;
+			buildConfigurationList = FACBCF76259F777F0039CF3E /* Build configuration list for PBXNativeTarget "Polyhedra" */;
 			buildPhases = (
 				FACBCF67259F777F0039CF3E /* Headers */,
 				FACBCF68259F777F0039CF3E /* Sources */,
@@ -98,9 +98,9 @@
 			);
 			dependencies = (
 			);
-			name = PolyhedraScreenSaver;
+			name = Polyhedra;
 			productName = Ico;
-			productReference = FACBCF6C259F777F0039CF3E /* PolyhedraScreenSaver.saver */;
+			productReference = FACBCF6C259F777F0039CF3E /* Polyhedra.saver */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +117,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FACBCF66259F777F0039CF3E /* Build configuration list for PBXProject "PolyhedraScreenSaver" */;
+			buildConfigurationList = FACBCF66259F777F0039CF3E /* Build configuration list for PBXProject "Polyhedra" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,7 +130,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FACBCF6B259F777F0039CF3E /* PolyhedraScreenSaver */,
+				FACBCF6B259F777F0039CF3E /* Polyhedra */,
 			);
 		};
 /* End PBXProject section */
@@ -321,7 +321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0;
-				INFOPLIST_FILE = PolyhedraScreenSaver/Info.plist;
+				INFOPLIST_FILE = Polyhedra/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,7 +329,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedrascreensaver;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -344,7 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0;
-				INFOPLIST_FILE = PolyhedraScreenSaver/Info.plist;
+				INFOPLIST_FILE = Polyhedra/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -352,7 +352,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedrascreensaver;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
@@ -362,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FACBCF66259F777F0039CF3E /* Build configuration list for PBXProject "PolyhedraScreenSaver" */ = {
+		FACBCF66259F777F0039CF3E /* Build configuration list for PBXProject "Polyhedra" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FACBCF74259F777F0039CF3E /* Debug */,
@@ -371,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FACBCF76259F777F0039CF3E /* Build configuration list for PBXNativeTarget "PolyhedraScreenSaver" */ = {
+		FACBCF76259F777F0039CF3E /* Build configuration list for PBXNativeTarget "Polyhedra" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FACBCF77259F777F0039CF3E /* Debug */,
