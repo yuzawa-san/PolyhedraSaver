@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FACBCF6B259F777F0039CF3E"
-               BuildableName = "Ico.saver"
-               BlueprintName = "Ico"
-               ReferencedContainer = "container:Ico.xcodeproj">
+               BuildableName = "PolyhedraScreenSaver.saver"
+               BlueprintName = "PolyhedraScreenSaver"
+               ReferencedContainer = "container:PolyhedraScreenSaver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FACBCF6B259F777F0039CF3E"
-            BuildableName = "Ico.saver"
-            BlueprintName = "Ico"
-            ReferencedContainer = "container:Ico.xcodeproj">
+            BuildableName = "PolyhedraScreenSaver.saver"
+            BlueprintName = "PolyhedraScreenSaver"
+            ReferencedContainer = "container:PolyhedraScreenSaver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

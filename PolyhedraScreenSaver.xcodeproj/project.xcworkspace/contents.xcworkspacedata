@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/jyuzawa/Documents/personal_repos/ico-saver/PolyhedraScreenSaver.xcodeproj">
    </FileRef>
 </Workspace>

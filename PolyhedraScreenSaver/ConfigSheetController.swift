@@ -32,7 +32,7 @@ class ConfigSheetController: NSObject {
         colorOverrideCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
         colorOverrideWell!.color = defaultsManager.colorOverride
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
-            informationLabel!.stringValue = "Ico (Version " + text + ") by yuzawa-san"
+            informationLabel!.stringValue = "Version " + text + " by yuzawa-san"
         }
     }
 

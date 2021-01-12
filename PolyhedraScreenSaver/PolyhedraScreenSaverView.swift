@@ -1,6 +1,6 @@
 import ScreenSaver
 
-class IcoScreenSaverView: ScreenSaverView {
+class PolyhedraScreenSaverView: ScreenSaverView {
     private var position: CGPoint = .zero
     private var velocity: CGVector = .zero
     private var radius: CGFloat = .zero

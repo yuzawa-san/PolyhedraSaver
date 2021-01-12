@@ -1,4 +1,4 @@
-# Ico-saver
+# PolyhedraScreenSaver
 by yuzawa-san
 
 ![Example](demo.gif)

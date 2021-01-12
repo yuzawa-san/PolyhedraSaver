@@ -19,9 +19,9 @@ jobs:
       - name: build
         run: xcodebuild clean build -configuration Release
       - name: Stage Artifact
-        run: mkdir bundle && cp -r build/Release/Ico.saver bundle/
+        run: mkdir bundle && cp -r build/Release/PolyhedraScreenSaver.saver bundle/
       - name: 'Store Artifact'
         uses: actions/upload-artifact@v2
         with:
-          name: Ico.saver
+          name: PolyhedraScreenSaver.saver
           path: bundle/
