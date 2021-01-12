@@ -9,7 +9,7 @@ class ConfigSheetController: NSObject {
     @IBOutlet var informationLabel: NSTextField?
 
     private let defaultsManager = DefaultsManager()
-    private let projectUrl = "https://github.com/yuzawa-san/ico-saver"
+    private let projectUrl = "https://github.com/yuzawa-san/PolyhedraSaver"
     private let currentBundle = Bundle(for: ConfigSheetController.self)
 
     override init() {

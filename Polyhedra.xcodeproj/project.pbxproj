@@ -99,7 +99,7 @@
 			dependencies = (
 			);
 			name = Polyhedra;
-			productName = Ico;
+			productName = Polyhedra;
 			productReference = FACBCF6C259F777F0039CF3E /* Polyhedra.saver */;
 			productType = "com.apple.product-type.bundle";
 		};

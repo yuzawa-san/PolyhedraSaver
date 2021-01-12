@@ -3,9 +3,9 @@ by yuzawa-san
 
 ![Example](demo.gif)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/yuzawa-san/ico-saver)](https://github.com/yuzawa-san/ico-saver/releases)
-[![GitHub All Releases](https://img.shields.io/github/downloads/yuzawa-san/ico-saver/total)](https://github.com/yuzawa-san/ico-saver/releases)
-[![build](https://github.com/yuzawa-san/ico-saver/workflows/build/badge.svg)](https://github.com/yuzawa-san/ico-saver/actions)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/yuzawa-san/PolyhedraSaver)](https://github.com/yuzawa-san/PolyhedraSaver/releases)
+[![GitHub All Releases](https://img.shields.io/github/downloads/yuzawa-san/PolyhedraSaver/total)](https://github.com/yuzawa-san/PolyhedraSaver/releases)
+[![build](https://github.com/yuzawa-san/PolyhedraSaver/workflows/build/badge.svg)](https://github.com/yuzawa-san/PolyhedraSaver/actions)
 
 This is a macOS screensaver with various convex polyhedra bouncing across the screen.
 It is inspired by X11's [ico](https://www.x.org/releases/unsupported/programs/ico/) and [mxico](https://people.freebsd.org/~maho/mxico/Tamentai.html).
@@ -24,16 +24,11 @@ The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates o
 
 The minimum build target is macOS 10.13.
 
-Download a [release ZIP archive](https://github.com/yuzawa-san/ico-saver/releases) or build the application locally.
-
-Open the ZIP archive to decompress. Control-click the the `Ico.saver` file and open via the context menu. This should open a context menu with an option to `Open Anyway`.
-The system may complain about the origin of the file since it was downloaded from the internet.
-
-Due to the lack of code signing (that costs money), it will likely be necessary to alter security settings to allow installation:
-
-```
-xattr -d "com.apple.quarantine" Ico.saver
-```
+* Download a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases) or build the application locally.
+* Open `Polyhedra.saver.zip` to uncompress.
+* Due to the lack of code signing (that costs money), it is necessary to tell the system to trust this download by running `xattr -d "com.apple.quarantine" /path/to/your/Polyhedra.saver`
+* Open `Polyhedra.saver` which will load the screen saver System Preferences pane. This will install the screensaver.
+* Configure the screensaver.
 
 ### Homebrew
 
@@ -42,5 +37,5 @@ Please star this project if you want a homebrew distribution as they require pro
 
 ## Building
 
-Open the Xcode project and build using the IDE.
-Open the `Ico.saver` product in the Finder, which will open the screensaver in the System Preferences.
+Open the Xcode project and build using the IDE or by running `xcodebuild clean build -configuration Debug`
+Open the `Polyhedra.saver` product, which will open the screensaver in the System Preferences.
