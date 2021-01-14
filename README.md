@@ -37,7 +37,7 @@ Alternative shell version:
 curl -OL https://github.com/yuzawa-san/PolyhedraSaver/releases/download/TAG/Polyhedra.saver.zip
 # Decompress
 unzip Polyhedra.saver.zip
-# Open the sceensaver in the System Preferences
+# Load screensaver into System Preferences
 open Polyhedra.saver
 # Clean up
 rm -rf Polyhedra.saver.zip Polyhedra.saver
