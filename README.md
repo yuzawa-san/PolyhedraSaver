@@ -24,11 +24,19 @@ The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates o
 
 The minimum build target is macOS 10.13.
 
-* Download a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases) or build the application locally.
-* Open `Polyhedra.saver.zip` to uncompress.
-* Due to the lack of code signing (that costs money), it is necessary to tell the system to trust this download by running `xattr -d "com.apple.quarantine" /path/to/your/Polyhedra.saver`
-* Open `Polyhedra.saver` which will load the screen saver System Preferences pane. This will install the screensaver.
-* Configure the screensaver.
+Installing using a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases):
+```console
+ # Download a tagged version (see shield above)
+ curl -OL https://github.com/yuzawa-san/PolyhedraSaver/releases/download/TAG/Polyhedra.saver.zip
+ # Decompress
+ unzip Polyhedra.saver.zip
+ # Due to the lack of code signing (that costs money), it is necessary to tell the system to trust this download
+ xattr -d "com.apple.quarantine" Polyhedra.saver
+ # Open the sceensaver in the System Preferences
+ open Polyhedra.saver
+ # Clean up
+ rm Polyhedra.saver.zip Polyhedra.saver
+```
 
 ### Homebrew
 
