@@ -7,12 +7,9 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     private var maxX: CGFloat = .zero
     private var maxY: CGFloat = .zero
     private var rotation: Int = .zero
-    private var name: String = ""
-    private var cachedRenderings = [CachedRendering]()
-    lazy var sheetController = ConfigSheetController()
-    private let defaultsManager = DefaultsManager()
-    private var colorOverride: NSColor?
-    private var showPolyhedronName: Bool = false
+    private lazy var sheetController = ConfigSheetController()
+    private var cachedRenderings: [CachedRendering] = []
+    private var settings = PolyhedraSettings()
     private var textRect: NSRect = .zero
     private var textAttributes: [NSAttributedString.Key: Any] = .init()
 
@@ -39,22 +36,14 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         let color = NSColor(calibratedWhite: 0.25, alpha: 1.0)
         textAttributes = [
             NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: color,
+            NSAttributedString.Key.foregroundColor: color
         ]
         animationTimeInterval = 1.0 / 30
     }
 
     override func startAnimation() {
-        // load cached renderings and color
-        let polyhedron = PolyhedraRegistry.forName(defaultsManager.polyhedronName)
-        name = polyhedron.name
-        cachedRenderings = polyhedron.generateCachedRenderings()
-        if defaultsManager.useColorOverride {
-            colorOverride = defaultsManager.colorOverride
-        } else {
-            colorOverride = nil
-        }
-        showPolyhedronName = defaultsManager.showPolyhedronName
+        settings = PolyhedraSettings()
+        cachedRenderings = settings.polyhedron.generateCachedRenderings()
         super.startAnimation()
     }
 
@@ -94,12 +83,16 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             path.move(to: startPoint)
             path.line(to: endPoint)
         }
-        (colorOverride ?? cachedRendering.color).set()
+        if settings.useColorOverride {
+            settings.colorOverride.set()
+        } else {
+            cachedRendering.color.set()
+        }
         path.lineWidth = 1
         path.stroke()
         // draw polyhedron name
-        if showPolyhedronName {
-            name.draw(in: textRect, withAttributes: textAttributes)
+        if settings.showPolyhedronName {
+            settings.polyhedron.name.draw(in: textRect, withAttributes: textAttributes)
         }
     }
 

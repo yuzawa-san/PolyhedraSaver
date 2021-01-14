@@ -8,7 +8,7 @@ class ConfigSheetController: NSObject {
     @IBOutlet var colorOverrideWell: NSColorWell?
     @IBOutlet var informationLabel: NSTextField?
 
-    private let defaultsManager = DefaultsManager()
+    private let settings = PolyhedraSettings()
     private let projectUrl = "https://github.com/yuzawa-san/PolyhedraSaver"
     private let currentBundle = Bundle(for: ConfigSheetController.self)
 
@@ -27,10 +27,10 @@ class ConfigSheetController: NSObject {
             polyhedronSelection!.addItem(withTitle: polyhedron.name)
         }
         // load settings into UI
-        polyhedronSelection!.selectItem(withTitle: defaultsManager.polyhedronName)
-        showPolyhedronNameCheckbox!.state = defaultsManager.showPolyhedronName ? .on : .off
-        colorOverrideCheckbox!.state = defaultsManager.useColorOverride ? .on : .off
-        colorOverrideWell!.color = defaultsManager.colorOverride
+        polyhedronSelection!.selectItem(withTitle: settings.polyhedron.name)
+        showPolyhedronNameCheckbox!.state = settings.showPolyhedronName ? .on : .off
+        colorOverrideCheckbox!.state = settings.useColorOverride ? .on : .off
+        colorOverrideWell!.color = settings.colorOverride
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
             informationLabel!.stringValue = "Version " + text + " by yuzawa-san"
         }
@@ -43,11 +43,11 @@ class ConfigSheetController: NSObject {
 
     @IBAction func ok(_: AnyObject) {
         // save settings
-        defaultsManager.polyhedronName = polyhedronSelection!.titleOfSelectedItem!
-        defaultsManager.showPolyhedronName = showPolyhedronNameCheckbox!.state == .on
-        defaultsManager.useColorOverride = colorOverrideCheckbox!.state == .on
-        defaultsManager.colorOverride = colorOverrideWell!.color
-        defaultsManager.synchronize()
+        settings.setPolyhedron(name: polyhedronSelection!.titleOfSelectedItem!)
+        settings.showPolyhedronName = showPolyhedronNameCheckbox!.state == .on
+        settings.useColorOverride = colorOverrideCheckbox!.state == .on
+        settings.colorOverride = colorOverrideWell!.color
+        settings.write()
         dismiss()
     }
 

@@ -12,7 +12,7 @@
 		FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF81259F81630039CF3E /* Polyhedra.swift */; };
 		FACBCF8C259F91390039CF3E /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACBCF8B259F91390039CF3E /* ConfigSheet.xib */; };
 		FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */; };
-		FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF91259FF4810039CF3E /* DefaultsManager.swift */; };
+		FACBCF92259FF4810039CF3E /* PolyhedraSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBCF91259FF4810039CF3E /* PolyhedraSettings.swift */; };
 		FAE24FE325A3F0C000CC12F1 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE24FE225A3F0C000CC12F1 /* thumbnail.png */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +24,7 @@
 		FACBCF81259F81630039CF3E /* Polyhedra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyhedra.swift; sourceTree = "<group>"; };
 		FACBCF8B259F91390039CF3E /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
-		FACBCF91259FF4810039CF3E /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
+		FACBCF91259FF4810039CF3E /* PolyhedraSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedraSettings.swift; sourceTree = "<group>"; };
 		FAE24FE225A3F0C000CC12F1 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +64,7 @@
 				FACBCF81259F81630039CF3E /* Polyhedra.swift */,
 				FACBCF8B259F91390039CF3E /* ConfigSheet.xib */,
 				FACBCF8E259F91690039CF3E /* ConfigSheetController.swift */,
-				FACBCF91259FF4810039CF3E /* DefaultsManager.swift */,
+				FACBCF91259FF4810039CF3E /* PolyhedraSettings.swift */,
 				FA8AD16425A3C07A0067F17B /* polyhedra.json */,
 			);
 			path = Polyhedra;
@@ -195,7 +195,7 @@
 			files = (
 				FACBCF7D259F77AE0039CF3E /* PolyhedraScreenSaverView.swift in Sources */,
 				FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */,
-				FACBCF92259FF4810039CF3E /* DefaultsManager.swift in Sources */,
+				FACBCF92259FF4810039CF3E /* PolyhedraSettings.swift in Sources */,
 				FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
