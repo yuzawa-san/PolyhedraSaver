@@ -29,8 +29,8 @@ class ConfigSheetController: NSObject {
         // load settings into UI
         polyhedronSelection!.selectItem(withTitle: settings.polyhedron.name)
         showPolyhedronNameCheckbox!.state = settings.showPolyhedronName ? .on : .off
-        colorOverrideCheckbox!.state = settings.useColorOverride ? .on : .off
-        colorOverrideWell!.color = settings.colorOverride
+        colorOverrideCheckbox!.state = settings.fixedColor == nil ? .off : .on
+        colorOverrideWell!.color = settings.fixedColor ?? NSColor.red
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
             informationLabel!.stringValue = "Version " + text + " by yuzawa-san"
         }
@@ -45,8 +45,11 @@ class ConfigSheetController: NSObject {
         // save settings
         settings.setPolyhedron(name: polyhedronSelection!.titleOfSelectedItem!)
         settings.showPolyhedronName = showPolyhedronNameCheckbox!.state == .on
-        settings.useColorOverride = colorOverrideCheckbox!.state == .on
-        settings.colorOverride = colorOverrideWell!.color
+        if colorOverrideCheckbox!.state == .on {
+            settings.fixedColor = colorOverrideWell!.color
+        } else {
+            settings.fixedColor = nil
+        }
         settings.write()
         dismiss()
     }

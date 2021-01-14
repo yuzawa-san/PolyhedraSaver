@@ -83,11 +83,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             path.move(to: startPoint)
             path.line(to: endPoint)
         }
-        if settings.useColorOverride {
-            settings.colorOverride.set()
-        } else {
-            cachedRendering.color.set()
-        }
+        (settings.fixedColor ?? cachedRendering.color).set()
         path.lineWidth = 1
         path.stroke()
         // draw polyhedron name
