@@ -20,7 +20,8 @@ jobs:
         run: brew bundle
       - name: Get the configuration
         id: get_configuration
-        run: [ $(echo refs/tags/v1.0 | cut -d / -f 2) = "tags" ] && echo ::set-output name=configuration::Release || echo ::set-output name=configuration::Debug
+        run: |
+          [ $(echo refs/tags/v1.0 | cut -d / -f 2) = "tags" ] && echo ::set-output name=configuration::Release || echo ::set-output name=configuration::Debug
       - name: build
         run: xcodebuild clean build -configuration ${{ steps.get_configuration.outputs.configuration }}
       - name: Stage Artifact
