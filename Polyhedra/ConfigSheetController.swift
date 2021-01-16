@@ -108,7 +108,7 @@ extension ConfigSheetController: NSTableViewDataSource, NSTableViewDelegate {
     }
 
     func tableView(_: NSTableView, heightOfRow _: Int) -> CGFloat {
-        return 24
+        return 48
     }
 }
 
