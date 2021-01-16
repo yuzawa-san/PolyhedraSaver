@@ -70,19 +70,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         }
         // fetch a cached rendering
         let cachedRendering = cachedRenderings[rotation]
-        // place points on screen relative to object position
-        let points = cachedRendering.points.map { CGPoint(
-            x: CGFloat(position.x + radius + radius * $0.x),
-            y: CGFloat(position.y + radius - radius * -$0.y)
-        ) }
-        // draw edges
-        let path = NSBezierPath()
-        for edge in cachedRendering.edges {
-            let startPoint = points[edge.startPointIdx]
-            let endPoint = points[edge.endPointIdx]
-            path.move(to: startPoint)
-            path.line(to: endPoint)
-        }
+        let path = cachedRendering.render(position: position, radius: radius)
         (settings.fixedColor ?? cachedRendering.color).set()
         path.lineWidth = 1
         path.stroke()

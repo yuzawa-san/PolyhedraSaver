@@ -22,6 +22,22 @@ struct CachedRendering {
     let points: [CGPoint]
     let edges: [VisibleEdge]
     let color: NSColor
+
+    func render(position: CGPoint, radius: CGFloat) -> NSBezierPath {
+        let mappedPoints = points.map { CGPoint(
+            x: CGFloat(position.x + radius + radius * $0.x),
+            y: CGFloat(position.y + radius - radius * -$0.y)
+        ) }
+        // draw edges
+        let path = NSBezierPath()
+        for edge in edges {
+            let startPoint = mappedPoints[edge.startPointIdx]
+            let endPoint = mappedPoints[edge.endPointIdx]
+            path.move(to: startPoint)
+            path.line(to: endPoint)
+        }
+        return path
+    }
 }
 
 struct Polyhedron: Codable {
@@ -29,40 +45,46 @@ struct Polyhedron: Codable {
     let vertices: [[Float]]
     let faces: [[Int]]
 
+    private static let camera = vector_float3(0, 0, 1)
+
+    func generateCachedRendering(_ degrees: Int) -> CachedRendering {
+        // do a transformation
+        let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
+        let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
+        let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
+        // do back-face culling
+        var edges = Set<VisibleEdge>()
+        for face in faces {
+            let point0 = transformedVertices[face[0]]
+            let point1 = transformedVertices[face[1]]
+            let point2 = transformedVertices[face[2]]
+            let edge0 = point1 - point0
+            let edge1 = point2 - point1
+            let normal = simd_normalize(simd_cross(edge0, edge1))
+            let dot = simd_dot(normal, Polyhedron.camera)
+            let angle = acosf(dot / (simd_length(normal) * simd_length(Polyhedron.camera)))
+            if angle > Float.pi / 2 {
+                // the face's normal is facing away from the camera
+                continue
+            }
+            // the face is visible, so make sure we draw the edges
+            edges.insert(VisibleEdge(idx0: face.first!, idx1: face.last!))
+            for (vertexIdx, idx1) in face.dropLast().enumerated() {
+                let idx0 = face[vertexIdx + 1]
+                edges.insert(VisibleEdge(idx0: idx0, idx1: idx1))
+            }
+        }
+        // simple interpolation on hue from degrees
+        let hue = CGFloat(degrees) / 360.0
+        let color = NSColor(calibratedHue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        return CachedRendering(points: points, edges: Array(edges), color: color)
+    }
+
     func generateCachedRenderings() -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
-        let camera = vector_float3(0, 0, 1)
         // precompute all of the rotations
         for degrees in 0 ..< 360 {
-            // do a transformation
-            let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
-            let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
-            let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
-            // do back-face culling
-            var edges = Set<VisibleEdge>()
-            for face in faces {
-                let point0 = transformedVertices[face[0]]
-                let point1 = transformedVertices[face[1]]
-                let point2 = transformedVertices[face[2]]
-                let edge0 = point1 - point0
-                let edge1 = point2 - point1
-                let normal = simd_normalize(simd_cross(edge0, edge1))
-                let angle = acosf(simd_dot(normal, camera) / (simd_length(normal) * simd_length(camera)))
-                if angle > Float.pi / 2 {
-                    // the face's normal is facing away from the camera
-                    continue
-                }
-                // the face is visible, so make sure we draw the edges
-                edges.insert(VisibleEdge(idx0: face.first!, idx1: face.last!))
-                for (vertexIdx, idx1) in face.dropLast().enumerated() {
-                    let idx0 = face[vertexIdx + 1]
-                    edges.insert(VisibleEdge(idx0: idx0, idx1: idx1))
-                }
-            }
-            // simple interpolation on hue from degrees
-            let hue = CGFloat(degrees) / 360.0
-            let color = NSColor(calibratedHue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            renderedPolygons.append(CachedRendering(points: points, edges: Array(edges), color: color))
+            renderedPolygons.append(generateCachedRendering(degrees))
         }
         return renderedPolygons
     }
