@@ -15,7 +15,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        var fontSize: CGFloat = 16
+        var fontSize: CGFloat = 24
         if isPreview {
             radius = 25
             velocity = CGVector(dx: 5, dy: 5)
@@ -33,7 +33,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         // configure text
         let font = NSFont.systemFont(ofSize: fontSize)
         textRect = NSRect(x: fontSize, y: fontSize, width: frame.width, height: fontSize * 1.5)
-        let color = NSColor(calibratedWhite: 0.25, alpha: 1.0)
+        let color = NSColor(calibratedWhite: 1.0, alpha: 0.2)
         textAttributes = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: color
