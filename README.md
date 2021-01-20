@@ -22,7 +22,7 @@ The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates o
 
 ## Installation
 
-The minimum build target is macOS 10.13.
+The minimum build target is macOS 10.13. Manual installation or Homebrew installation is available.
 
 * Download a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases).
 * Open `Polyhedra.saver.zip` to uncompress.
@@ -45,8 +45,29 @@ rm -rf Polyhedra.saver.zip Polyhedra.saver
 
 ### Homebrew
 
-Ideally, this project would be distributed via Homebrew, however that is not possible at this point in time.
+Ideally, this project would be distributed via Homebrew main repo, however that is not possible at this point in time.
 Please star this project if you want a homebrew distribution as they require projects to have a certain provenance to be added.
+
+A self-maintained tap is available for use. To install tap:
+```console
+brew tap yuzawa-san/tap
+```
+
+To install:
+```console
+brew update
+brew install --no-quarantine --cask polyhedrasaver
+```
+The code is not signed, so the `--no-quarantine` flag will be needed to have your system trust it.
+
+To update:
+```console
+brew update
+# upgrade all Homebrew software
+brew upgrade
+# update just this
+brew upgrade --no-quarantine --cask polyhedrasaver
+```
 
 ## Building
 
