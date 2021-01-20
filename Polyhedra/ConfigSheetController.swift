@@ -40,8 +40,8 @@ class ConfigSheetController: NSObject {
 
 class PolyhedraSettingsController: NSObject {
     @IBOutlet var tableView: NSTableView!
-    @IBOutlet var colorOverrideCheckbox: NSButton!
-    @IBOutlet var colorOverrideWell: NSColorWell!
+    @IBOutlet var fixedColorCheckbox: NSButton!
+    @IBOutlet var fixedColorWell: NSColorWell!
     @IBOutlet var informationLabel: NSTextField!
 
     private let settings = PolyhedraSettings()
@@ -61,8 +61,8 @@ class PolyhedraSettingsController: NSObject {
         indices.insert(selectedIdx)
         tableView.selectRowIndexes(indices, byExtendingSelection: false)
         tableView.scrollRowToVisible(selectedIdx)
-        colorOverrideCheckbox.state = settings.fixedColor == nil ? .off : .on
-        colorOverrideWell.color = settings.fixedColor ?? NSColor.red
+        fixedColorCheckbox.state = settings.fixedColor == nil ? .off : .on
+        fixedColorWell.color = settings.fixedColor ?? NSColor.red
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
             informationLabel.stringValue = "Version " + text + " by yuzawa-san"
         }
@@ -70,8 +70,8 @@ class PolyhedraSettingsController: NSObject {
 
     func save() {
         settings.setPolyhedronName(name: rows[tableView.selectedRow].name)
-        if colorOverrideCheckbox.state == .on {
-            settings.fixedColor = colorOverrideWell.color
+        if fixedColorCheckbox.state == .on {
+            settings.fixedColor = fixedColorWell.color
         } else {
             settings.fixedColor = nil
         }

@@ -171,8 +171,8 @@ Gw
         </window>
         <customObject id="d3v-Cp-snb" customClass="PolyhedraSettingsController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
-                <outlet property="colorOverrideCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
-                <outlet property="colorOverrideWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
+                <outlet property="fixedColorCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
+                <outlet property="fixedColorWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
                 <outlet property="informationLabel" destination="K0G-bs-Wwb" id="6u5-h8-oPE"/>
                 <outlet property="tableView" destination="BlY-xb-mp2" id="WPz-6c-FOj"/>
             </connections>
