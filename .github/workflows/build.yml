@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-      - name: add tools
-        run: brew bundle
       - name: Get the configuration
         id: get_configuration
         run: |
