@@ -6,12 +6,11 @@ class ConfigSheetController: NSObject {
     @IBOutlet var colorOverrideCheckbox: NSButton!
     @IBOutlet var colorOverrideWell: NSColorWell!
     @IBOutlet var informationLabel: NSTextField!
-    @IBOutlet var tableView: NSTableView!
+    @IBOutlet var tableViewController: PolyhedronTableViewController!
 
     private let settings = PolyhedraSettings()
     private let projectUrl = "https://github.com/yuzawa-san/PolyhedraSaver"
     private let currentBundle = Bundle(for: ConfigSheetController.self)
-    private var polyhedraRows: [PolyhedronCellInfo] = []
 
     override init() {
         super.init()
@@ -20,25 +19,7 @@ class ConfigSheetController: NSObject {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if !polyhedraRows.isEmpty {
-            return
-        }
-        var selectedIdx = 0
-        polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomName, cachedRendering: nil))
-        for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
-            polyhedron0.name < polyhedron1.name
-        }) {
-            let cachedRendering = polyhedron.generateCachedRendering(45)
-            polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
-        }
-        for (idx, info) in polyhedraRows.enumerated() where info.name == settings.polyhedron.name {
-            selectedIdx = idx
-        }
-        tableView.reloadData()
-        var indices = IndexSet()
-        indices.insert(selectedIdx)
-        tableView.selectRowIndexes(indices, byExtendingSelection: false)
-        tableView.scrollRowToVisible(selectedIdx)
+        tableViewController.name = settings.polyhedron.name
         showPolyhedronNameCheckbox.state = settings.showPolyhedronName ? .on : .off
         colorOverrideCheckbox.state = settings.fixedColor == nil ? .off : .on
         colorOverrideWell.color = settings.fixedColor ?? NSColor.red
@@ -54,7 +35,7 @@ class ConfigSheetController: NSObject {
 
     @IBAction func ok(_: AnyObject) {
         // save settings
-        settings.setPolyhedron(name: polyhedraRows[tableView.selectedRow].name)
+        settings.setPolyhedron(name: tableViewController.name)
         settings.showPolyhedronName = showPolyhedronNameCheckbox.state == .on
         if colorOverrideCheckbox.state == .on {
             settings.fixedColor = colorOverrideWell.color
@@ -76,7 +57,33 @@ class ConfigSheetController: NSObject {
     }
 }
 
-extension ConfigSheetController: NSTableViewDataSource, NSTableViewDelegate {
+class PolyhedronTableViewController: NSObject {
+    private let polyhedraRows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
+
+    @IBOutlet var tableView: NSTableView!
+
+    override init() {
+        super.init()
+    }
+
+    var name: String {
+        get {
+          return polyhedraRows[tableView.selectedRow].name
+        }
+        set (newName) {
+            var selectedIdx = 0
+            for (idx, info) in polyhedraRows.enumerated() where info.name == newName {
+                selectedIdx = idx
+            }
+            var indices = IndexSet()
+            indices.insert(selectedIdx)
+            tableView.selectRowIndexes(indices, byExtendingSelection: false)
+            tableView.scrollRowToVisible(selectedIdx)
+        }
+      }
+}
+
+extension PolyhedronTableViewController: NSTableViewDataSource, NSTableViewDelegate {
     func numberOfRows(in _: NSTableView) -> Int {
         return polyhedraRows.count
     }
@@ -110,11 +117,6 @@ extension ConfigSheetController: NSTableViewDataSource, NSTableViewDelegate {
     func tableView(_: NSTableView, heightOfRow _: Int) -> CGFloat {
         return 48
     }
-}
-
-struct PolyhedronCellInfo {
-    let name: String
-    let cachedRendering: CachedRendering?
 }
 
 class PolyhedronCellView: NSTableCellView {

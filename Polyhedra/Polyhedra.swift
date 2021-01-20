@@ -153,4 +153,21 @@ class PolyhedraRegistry {
         }
         return all[0]
     }
+
+    static func generateRows() -> [PolyhedronCellInfo] {
+        var polyhedraRows: [PolyhedronCellInfo] = []
+        polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomName, cachedRendering: nil))
+        for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
+            polyhedron0.name < polyhedron1.name
+        }) {
+            let cachedRendering = polyhedron.generateCachedRendering(45)
+            polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
+        }
+        return polyhedraRows
+    }
+}
+
+struct PolyhedronCellInfo {
+    let name: String
+    let cachedRendering: CachedRendering?
 }

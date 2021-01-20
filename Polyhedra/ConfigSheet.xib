@@ -12,7 +12,7 @@
                 <outlet property="colorOverrideWell" destination="IvE-d5-PCC" id="p0t-hh-FhR"/>
                 <outlet property="informationLabel" destination="K0G-bs-Wwb" id="FAf-43-jbf"/>
                 <outlet property="showPolyhedronNameCheckbox" destination="ygN-Av-EqD" id="cxc-8N-1FM"/>
-                <outlet property="tableView" destination="BlY-xb-mp2" id="c9c-aN-Eh3"/>
+                <outlet property="tableViewController" destination="d3v-Cp-snb" id="8RZ-gt-iLt"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="EOQ-KN-DeZ"/>
             </connections>
         </customObject>
@@ -84,7 +84,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="preview" id="fjB-vM-fTm" customClass="PolyhedronCellView" customModule="Polyhedra" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="0.0" width="46" height="24"/>
+                                                    <rect key="frame" x="18" y="0.0" width="46" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </tableCellView>
                                             </prototypeCellViews>
@@ -102,7 +102,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="name" id="3lJ-af-eiI">
-                                                    <rect key="frame" x="71" y="0.0" width="447" height="24"/>
+                                                    <rect key="frame" x="81" y="0.0" width="447" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSu-CM-g43">
@@ -123,8 +123,8 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <outlet property="dataSource" destination="-2" id="Wbe-eZ-nft"/>
-                                        <outlet property="delegate" destination="-2" id="7q6-07-t6b"/>
+                                        <outlet property="dataSource" destination="d3v-Cp-snb" id="tfI-hz-A2M"/>
+                                        <outlet property="delegate" destination="d3v-Cp-snb" id="lrp-Cp-ROO"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -181,6 +181,11 @@ Gw
             </view>
             <point key="canvasLocation" x="-89" y="70"/>
         </window>
+        <customObject id="d3v-Cp-snb" customClass="PolyhedronTableViewController" customModule="Polyhedra" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="BlY-xb-mp2" id="WPz-6c-FOj"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="NSTouchBarGetInfoTemplate" width="15" height="15"/>
