@@ -11,7 +11,7 @@ class PolyhedraSettings {
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
         let polyhedronName = defaults.string(forKey: "polyhedron_name") ?? PolyhedraRegistry.defaultName
         polyhedron = PolyhedraRegistry.forName(polyhedronName)
-        showPolyhedronName = defaults.bool(forKey: "show_polyhedron_name")
+        showPolyhedronName = polyhedron.name == PolyhedraRegistry.randomWithNameName
         fixedColor = PolyhedraSettings.readColorOverride(defaults)
     }
 
@@ -33,7 +33,6 @@ class PolyhedraSettings {
 
     func write() {
         defaults.setValue(polyhedron.name, forKey: "polyhedron_name")
-        defaults.setValue(showPolyhedronName, forKey: "show_polyhedron_name")
         if fixedColor == nil {
             defaults.removeObject(forKey: "fixed_color")
         } else {

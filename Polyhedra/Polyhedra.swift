@@ -126,6 +126,7 @@ struct Polyhedron: Codable {
 class PolyhedraRegistry {
     static let all: [Polyhedron] = loadPolyhedra()
     static let randomName = "Random"
+    static let randomWithNameName = "Random (with Name)"
     static let defaultName = "R05: Icosahedron"
 
     private static func loadPolyhedra() -> [Polyhedron] {
@@ -142,7 +143,7 @@ class PolyhedraRegistry {
     }
 
     static func forName(_ name: String) -> Polyhedron {
-        if name == randomName {
+        if name == randomName || name == randomWithNameName {
             return all.randomElement()!
         }
         for polyhedron in all where polyhedron.name == name {
@@ -157,6 +158,7 @@ class PolyhedraRegistry {
     static func generateRows() -> [PolyhedronCellInfo] {
         var polyhedraRows: [PolyhedronCellInfo] = []
         polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomName, cachedRendering: nil))
+        polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomWithNameName, cachedRendering: nil))
         for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
