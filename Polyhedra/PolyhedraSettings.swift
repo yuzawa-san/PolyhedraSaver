@@ -2,17 +2,17 @@ import ScreenSaver
 
 class PolyhedraSettings {
     private var defaults: UserDefaults
-    var polyhedron: Polyhedron
-    var showPolyhedronName: Bool
+    private var polyhedronName: String = ""
+    private var polyhedron: Polyhedron?
+    private var showPolyhedronName: Bool = false
     var fixedColor: NSColor?
 
     init() {
         let identifier = Bundle(for: PolyhedraSettings.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
-        let polyhedronName = defaults.string(forKey: "polyhedron_name") ?? PolyhedraRegistry.defaultName
-        polyhedron = PolyhedraRegistry.forName(polyhedronName)
-        showPolyhedronName = polyhedron.name == PolyhedraRegistry.randomWithNameName
         fixedColor = PolyhedraSettings.readColorOverride(defaults)
+        let name = defaults.string(forKey: "polyhedron_name") ?? PolyhedraRegistry.defaultName
+        setPolyhedronName(name: name)
     }
 
     private static func readColorOverride(_ defaults: UserDefaults) -> NSColor? {
@@ -27,12 +27,26 @@ class PolyhedraSettings {
         return color
     }
 
-    func setPolyhedron(name: String) {
+    func setPolyhedronName(name: String) {
+        polyhedronName = name
+        showPolyhedronName = name == PolyhedraRegistry.randomWithName
         polyhedron = PolyhedraRegistry.forName(name)
     }
 
+    func getPolyhedron() -> Polyhedron {
+        return polyhedron!
+    }
+
+    func getPolyhedronName() -> String {
+        return polyhedronName
+    }
+
+    func shouldShowPolyhedronName() -> Bool {
+        return showPolyhedronName
+    }
+
     func write() {
-        defaults.setValue(polyhedron.name, forKey: "polyhedron_name")
+        defaults.setValue(polyhedronName, forKey: "polyhedron_name")
         if fixedColor == nil {
             defaults.removeObject(forKey: "fixed_color")
         } else {

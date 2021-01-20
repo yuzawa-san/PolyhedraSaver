@@ -54,7 +54,7 @@ class PolyhedraSettingsController: NSObject {
 
     func load() {
         var selectedIdx = 0
-        for (idx, info) in rows.enumerated() where info.name == settings.polyhedron.name {
+        for (idx, info) in rows.enumerated() where info.name == settings.getPolyhedronName() {
             selectedIdx = idx
         }
         var indices = IndexSet()
@@ -69,7 +69,7 @@ class PolyhedraSettingsController: NSObject {
     }
 
     func save() {
-        settings.setPolyhedron(name: rows[tableView.selectedRow].name)
+        settings.setPolyhedronName(name: rows[tableView.selectedRow].name)
         if colorOverrideCheckbox.state == .on {
             settings.fixedColor = colorOverrideWell.color
         } else {
