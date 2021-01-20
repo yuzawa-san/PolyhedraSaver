@@ -2,7 +2,7 @@ import Cocoa
 
 class ConfigSheetController: NSObject {
     @IBOutlet var window: NSWindow!
-    @IBOutlet var tableViewController: PolyhedronTableViewController!
+    @IBOutlet var polyhedronSettingsController: PolyhedraSettingsController!
 
     private let projectUrl = "https://github.com/yuzawa-san/PolyhedraSaver"
     private let currentBundle = Bundle(for: ConfigSheetController.self)
@@ -14,7 +14,7 @@ class ConfigSheetController: NSObject {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableViewController.load()
+        polyhedronSettingsController.load()
     }
 
     private func dismiss() {
@@ -23,7 +23,7 @@ class ConfigSheetController: NSObject {
     }
 
     @IBAction func ok(_: AnyObject) {
-        tableViewController.save()
+        polyhedronSettingsController.save()
         dismiss()
     }
 
@@ -38,8 +38,7 @@ class ConfigSheetController: NSObject {
     }
 }
 
-class PolyhedronTableViewController: NSObject {
-
+class PolyhedraSettingsController: NSObject {
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var showPolyhedronNameCheckbox: NSButton!
     @IBOutlet var colorOverrideCheckbox: NSButton!
@@ -47,8 +46,8 @@ class PolyhedronTableViewController: NSObject {
     @IBOutlet var informationLabel: NSTextField!
 
     private let settings = PolyhedraSettings()
-    private let polyhedraRows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
-    private let currentBundle = Bundle(for: PolyhedronTableViewController.self)
+    private let rows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
+    private let currentBundle = Bundle(for: PolyhedraSettingsController.self)
 
     override init() {
         super.init()
@@ -56,7 +55,7 @@ class PolyhedronTableViewController: NSObject {
 
     func load() {
         var selectedIdx = 0
-        for (idx, info) in polyhedraRows.enumerated() where info.name == settings.polyhedron.name {
+        for (idx, info) in rows.enumerated() where info.name == settings.polyhedron.name {
             selectedIdx = idx
         }
         var indices = IndexSet()
@@ -72,7 +71,7 @@ class PolyhedronTableViewController: NSObject {
     }
 
     func save() {
-        settings.setPolyhedron(name: polyhedraRows[tableView.selectedRow].name)
+        settings.setPolyhedron(name: rows[tableView.selectedRow].name)
         settings.showPolyhedronName = showPolyhedronNameCheckbox.state == .on
         if colorOverrideCheckbox.state == .on {
             settings.fixedColor = colorOverrideWell.color
@@ -83,15 +82,15 @@ class PolyhedronTableViewController: NSObject {
     }
 }
 
-extension PolyhedronTableViewController: NSTableViewDataSource, NSTableViewDelegate {
+extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegate {
     func numberOfRows(in _: NSTableView) -> Int {
-        return polyhedraRows.count
+        return rows.count
     }
 
     func tableView(_ tableView: NSTableView,
                    viewFor tableColumn: NSTableColumn?,
                    row: Int) -> NSView? {
-        let polyhedraRow = polyhedraRows[row]
+        let polyhedraRow = rows[row]
         let key = tableColumn!.identifier.rawValue
         if key == "preview" {
             guard let cellView = tableView.makeView(withIdentifier:

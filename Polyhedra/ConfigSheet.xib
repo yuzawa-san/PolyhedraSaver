@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigSheetController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
-                <outlet property="tableViewController" destination="d3v-Cp-snb" id="8RZ-gt-iLt"/>
+                <outlet property="polyhedronSettingsController" destination="d3v-Cp-snb" id="8RZ-gt-iLt"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="EOQ-KN-DeZ"/>
             </connections>
         </customObject>
@@ -177,7 +177,7 @@ Gw
             </view>
             <point key="canvasLocation" x="-89" y="70"/>
         </window>
-        <customObject id="d3v-Cp-snb" customClass="PolyhedronTableViewController" customModule="Polyhedra" customModuleProvider="target">
+        <customObject id="d3v-Cp-snb" customClass="PolyhedraSettingsController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
                 <outlet property="colorOverrideCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
                 <outlet property="colorOverrideWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
