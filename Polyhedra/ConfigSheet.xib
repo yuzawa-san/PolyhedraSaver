@@ -8,10 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigSheetController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
-                <outlet property="colorOverrideCheckbox" destination="P7w-Fb-UES" id="Mrs-Kw-MKs"/>
-                <outlet property="colorOverrideWell" destination="IvE-d5-PCC" id="p0t-hh-FhR"/>
-                <outlet property="informationLabel" destination="K0G-bs-Wwb" id="FAf-43-jbf"/>
-                <outlet property="showPolyhedronNameCheckbox" destination="ygN-Av-EqD" id="cxc-8N-1FM"/>
                 <outlet property="tableViewController" destination="d3v-Cp-snb" id="8RZ-gt-iLt"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="EOQ-KN-DeZ"/>
             </connections>
@@ -22,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="640" height="522"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="522"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -183,6 +179,10 @@ Gw
         </window>
         <customObject id="d3v-Cp-snb" customClass="PolyhedronTableViewController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
+                <outlet property="colorOverrideCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
+                <outlet property="colorOverrideWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
+                <outlet property="informationLabel" destination="K0G-bs-Wwb" id="6u5-h8-oPE"/>
+                <outlet property="showPolyhedronNameCheckbox" destination="ygN-Av-EqD" id="S62-m2-Wyo"/>
                 <outlet property="tableView" destination="BlY-xb-mp2" id="WPz-6c-FOj"/>
             </connections>
         </customObject>

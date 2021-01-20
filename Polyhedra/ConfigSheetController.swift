@@ -2,13 +2,8 @@ import Cocoa
 
 class ConfigSheetController: NSObject {
     @IBOutlet var window: NSWindow!
-    @IBOutlet var showPolyhedronNameCheckbox: NSButton!
-    @IBOutlet var colorOverrideCheckbox: NSButton!
-    @IBOutlet var colorOverrideWell: NSColorWell!
-    @IBOutlet var informationLabel: NSTextField!
     @IBOutlet var tableViewController: PolyhedronTableViewController!
 
-    private let settings = PolyhedraSettings()
     private let projectUrl = "https://github.com/yuzawa-san/PolyhedraSaver"
     private let currentBundle = Bundle(for: ConfigSheetController.self)
 
@@ -19,13 +14,7 @@ class ConfigSheetController: NSObject {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableViewController.name = settings.polyhedron.name
-        showPolyhedronNameCheckbox.state = settings.showPolyhedronName ? .on : .off
-        colorOverrideCheckbox.state = settings.fixedColor == nil ? .off : .on
-        colorOverrideWell.color = settings.fixedColor ?? NSColor.red
-        if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
-            informationLabel.stringValue = "Version " + text + " by yuzawa-san"
-        }
+        tableViewController.load()
     }
 
     private func dismiss() {
@@ -34,15 +23,7 @@ class ConfigSheetController: NSObject {
     }
 
     @IBAction func ok(_: AnyObject) {
-        // save settings
-        settings.setPolyhedron(name: tableViewController.name)
-        settings.showPolyhedronName = showPolyhedronNameCheckbox.state == .on
-        if colorOverrideCheckbox.state == .on {
-            settings.fixedColor = colorOverrideWell.color
-        } else {
-            settings.fixedColor = nil
-        }
-        settings.write()
+        tableViewController.save()
         dismiss()
     }
 
@@ -58,29 +39,48 @@ class ConfigSheetController: NSObject {
 }
 
 class PolyhedronTableViewController: NSObject {
-    private let polyhedraRows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
 
     @IBOutlet var tableView: NSTableView!
+    @IBOutlet var showPolyhedronNameCheckbox: NSButton!
+    @IBOutlet var colorOverrideCheckbox: NSButton!
+    @IBOutlet var colorOverrideWell: NSColorWell!
+    @IBOutlet var informationLabel: NSTextField!
+
+    private let settings = PolyhedraSettings()
+    private let polyhedraRows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
+    private let currentBundle = Bundle(for: PolyhedronTableViewController.self)
 
     override init() {
         super.init()
     }
 
-    var name: String {
-        get {
-          return polyhedraRows[tableView.selectedRow].name
+    func load() {
+        var selectedIdx = 0
+        for (idx, info) in polyhedraRows.enumerated() where info.name == settings.polyhedron.name {
+            selectedIdx = idx
         }
-        set (newName) {
-            var selectedIdx = 0
-            for (idx, info) in polyhedraRows.enumerated() where info.name == newName {
-                selectedIdx = idx
-            }
-            var indices = IndexSet()
-            indices.insert(selectedIdx)
-            tableView.selectRowIndexes(indices, byExtendingSelection: false)
-            tableView.scrollRowToVisible(selectedIdx)
+        var indices = IndexSet()
+        indices.insert(selectedIdx)
+        tableView.selectRowIndexes(indices, byExtendingSelection: false)
+        tableView.scrollRowToVisible(selectedIdx)
+        showPolyhedronNameCheckbox.state = settings.showPolyhedronName ? .on : .off
+        colorOverrideCheckbox.state = settings.fixedColor == nil ? .off : .on
+        colorOverrideWell.color = settings.fixedColor ?? NSColor.red
+        if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            informationLabel.stringValue = "Version " + text + " by yuzawa-san"
         }
-      }
+    }
+
+    func save() {
+        settings.setPolyhedron(name: polyhedraRows[tableView.selectedRow].name)
+        settings.showPolyhedronName = showPolyhedronNameCheckbox.state == .on
+        if colorOverrideCheckbox.state == .on {
+            settings.fixedColor = colorOverrideWell.color
+        } else {
+            settings.fixedColor = nil
+        }
+        settings.write()
+    }
 }
 
 extension PolyhedronTableViewController: NSTableViewDataSource, NSTableViewDelegate {
