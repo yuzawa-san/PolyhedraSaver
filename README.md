@@ -19,6 +19,13 @@ Dozens of common polyhedra are included:
 * [Antiprisms](https://en.wikipedia.org/wiki/Antiprism) (A) - first ten (of infinite)
 
 The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates of all regular-faced convex polyhedra](http://mitani.cs.tsukuba.ac.jp/polyhedron/) (1992)
+The data lacks an SPDX license, but states the following (a desire to include the original README files):
+```
+座標データは自由に配布していただいてかまいません．ただし，データには
+必ずこのドキュメントを添えて下さい．なお，座標データの利用に関して発生
+した一切の障害について責任を負いかねますので，御了承下さい．
+```
+Here they are in full: [English](https://github.com/yuzawa-san/PolyhedraSaver/blob/master/third-party/README.txt) and [Japanese](https://github.com/yuzawa-san/PolyhedraSaver/blob/master/third-party/READMEj.txt)
 
 ## Installation
 
