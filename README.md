@@ -18,14 +18,21 @@ Dozens of common polyhedra are included:
 * [Prisms](https://en.wikipedia.org/wiki/Prism_%28geometry%29) (P) - first ten (of infinite)
 * [Antiprisms](https://en.wikipedia.org/wiki/Antiprism) (A) - first ten (of infinite)
 
-The shape data is derived from Kobayashi, M., Suzuki, T.: [Data of coordinates of all regular-faced convex polyhedra](http://mitani.cs.tsukuba.ac.jp/polyhedron/) (1992)
-The data lacks an SPDX license, but states the following (a desire to include the original README files):
-```
-座標データは自由に配布していただいてかまいません．ただし，データには
-必ずこのドキュメントを添えて下さい．なお，座標データの利用に関して発生
-した一切の障害について責任を負いかねますので，御了承下さい．
-```
-Here they are in full: [English](https://github.com/yuzawa-san/PolyhedraSaver/blob/master/third-party/README.txt) and [Japanese](https://github.com/yuzawa-san/PolyhedraSaver/blob/master/third-party/READMEj.txt)
+The provenance of the shape data is complex:
+
+* *[ja]* 小林光夫, 鈴木卓治: [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要, Vol.5, No.2, pp.147-184(1992)..
+*[en]* Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces](http://mitani.cs.tsukuba.ac.jp/polyhedron/ (1992)..
+_The original paper deriving the vertex algorithm. The authors published shape data to the `fj.sources` newsgroup on 1994-06-22_
+* (Nakata, Maho)[https://people.freebsd.org/~maho/mxico/Tamentai.html]: 正多面体、準正多面体、ザルガラー多面体、mxico..
+_This source downloaded the shape data from the newsgroup._
+* (Mitani, Jun)[http://mitani.cs.tsukuba.ac.jp/polyhedron/]: 多面体データ..
+_This source turned the shape data into OBJ files. This project imported the OBJ files._
+
+The original data from Kobayashi and Suzuki lacks an SPDX license, but states the following (a requirement to include the original README files):
+
+> 座標データは自由に配布していただいてかまいません．ただし，データには必ずこのドキュメントを添えて下さい．なお，座標データの利用に関して発生した一切の障害について責任を負いかねますので，御了承下さい．
+
+Here are their README files: [English](third-party/README.txt) and [Japanese](third-party/READMEj.txt)
 
 ## Installation
 
