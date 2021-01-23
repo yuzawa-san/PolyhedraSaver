@@ -18,19 +18,17 @@ Dozens of common polyhedra are included:
 * [Prisms](https://en.wikipedia.org/wiki/Prism_%28geometry%29) (P) - first ten (of infinite)
 * [Antiprisms](https://en.wikipedia.org/wiki/Antiprism) (A) - first ten (of infinite)
 
-Shape data sources:
+Coordinate data attribution:
 
 * **[ja]** 小林光夫, [鈴木卓治](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要, Vol.5, No.2, pp.147-184(1992)  
 **[en]** Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces (1992)  
-_The original paper deriving the vertex algorithm. The authors published shape data to the `fj.sources` newsgroup on 1994-06-22. The newsgroup data is not accessible at this time._
+_The original paper describing an algorithm to calculate vertex coordinates. The authors later published coordinate data to the `fj.sources` newsgroup on 1994-06-22 in multiple pieces with the subject `Data of coordinates of all regular-faced convex polyhedra`. The newsgroup data is not accessible at this time._
 * [Nakata, Maho (中田真秀)](https://people.freebsd.org/~maho/mxico/Tamentai.html): 正多面体、準正多面体、ザルガラー多面体、mxico  
-_This source downloaded the shape data from the newsgroup. This project imported the shape data._
+_This source downloaded the coordinate data from the newsgroup. This project imported the coordinate data. [archive](https://people.freebsd.org/~maho/mxico/polyhedron.tar.bz2)_
+* [Mitani, Jun (三谷純)](http://mitani.cs.tsukuba.ac.jp/polyhedron/): 多面体データ  
+_This source is a mirror of the previous source. The coordinate data was converted to OBJ file format. [archive](https://mitani.cs.tsukuba.ac.jp/polyhedron/data/polyhedrons_obj.zip)_
 
-The original data from Kobayashi and Suzuki lacks an SPDX license, but states the following (a requirement to include the original README files):
-
-> 座標データは自由に配布していただいてかまいません．ただし，データには必ずこのドキュメントを添えて下さい．なお，座標データの利用に関して発生した一切の障害について責任を負いかねますので，御了承下さい．
-
-Here are their README files: [English](third-party/README.txt) and [Japanese](third-party/READMEj.txt)
+The original data from Kobayashi and Suzuki lacks an SPDX license, but states that the original README files be included in this project. Here are their README files: [English](third-party/README.txt) and [Japanese](third-party/READMEj.txt)
 
 ## Installation
 
