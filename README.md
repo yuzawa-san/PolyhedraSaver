@@ -20,12 +20,12 @@ Dozens of common polyhedra are included:
 
 The provenance of the shape data is complex:
 
-* **[ja]** 小林光夫, 鈴木卓治: [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要, Vol.5, No.2, pp.147-184(1992)  
-**[en]** Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces](http://mitani.cs.tsukuba.ac.jp/polyhedron/ (1992)  
-_The original paper deriving the vertex algorithm. The authors published shape data to the `fj.sources` newsgroup on 1994-06-22_
-* (Nakata, Maho)[https://people.freebsd.org/~maho/mxico/Tamentai.html]: 正多面体、準正多面体、ザルガラー多面体、mxico  
+* **[ja]** [小林光夫](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/), 鈴木卓治: [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要, Vol.5, No.2, pp.147-184(1992)  
+**[en]** Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces (1992)  
+_The original paper deriving the vertex algorithm. The authors published shape data to the `fj.sources` newsgroup on 1994-06-22. The newsgroup data is not accessible at this time._
+* [Nakata, Maho (中田真秀)](https://people.freebsd.org/~maho/mxico/Tamentai.html): 正多面体、準正多面体、ザルガラー多面体、mxico  
 _This source downloaded the shape data from the newsgroup._
-* (Mitani, Jun)[http://mitani.cs.tsukuba.ac.jp/polyhedron/]: 多面体データ  
+* [Mitani, Jun (三谷純)](http://mitani.cs.tsukuba.ac.jp/polyhedron/): 多面体データ  
 _This source turned the shape data into OBJ files. This project imported the OBJ files._
 
 The original data from Kobayashi and Suzuki lacks an SPDX license, but states the following (a requirement to include the original README files):
