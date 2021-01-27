@@ -23,9 +23,9 @@ Coordinate data attribution:
 * **[ja]** 小林光夫, [鈴木卓治](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要 編 5(2) 1992.12 p.p147～184  
 **[en]** Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/), "[Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00)", _Bulletin of the University of Electro-Communications_, vol. 5, no. 2, pp.147-184, Dec. 1992.  
 _The original paper describing an algorithm to calculate vertex coordinates. The authors later published coordinate data to the `fj.sources` newsgroup on 1994-06-22 in multiple pieces with the subject `Data of coordinates of all regular-faced convex polyhedra`. The newsgroup data is not accessible at this time._
-* [Nakata, Maho (中田真秀)](https://people.freebsd.org/~maho/mxico/Tamentai.html): Regular polyhedron, quasi-regular polyhedron, Zargaler polyhedron, mxico (正多面体、準正多面体、ザルガラー多面体、mxico)  
+* [Nakata, Maho (中田真秀)](http://nakatamaho.riken.jp/): [Regular polyhedron, quasi-regular polyhedron, Zargaler polyhedron, mxico (正多面体、準正多面体、ザルガラー多面体、mxico)](https://people.freebsd.org/~maho/mxico/Tamentai.html)  
 _This source downloaded the coordinate data from the newsgroup. This project imported the coordinate data. [archive](https://people.freebsd.org/~maho/mxico/polyhedron.tar.bz2)_
-* [Mitani, Jun (三谷純)](http://mitani.cs.tsukuba.ac.jp/polyhedron/): Polyhedral data (多面体データ)  
+* [Mitani, Jun (三谷純)](http://mitani.cs.tsukuba.ac.jp/): [Polyhedral data (多面体データ)](http://mitani.cs.tsukuba.ac.jp/polyhedron/)  
 _This source is a mirror of the previous source. The coordinate data was converted to OBJ file format. [archive](https://mitani.cs.tsukuba.ac.jp/polyhedron/data/polyhedrons_obj.zip)_
 
 The original data from Kobayashi and Suzuki lacks an SPDX license, but states that the original README files be included in this project. Here are their README files: [English](third-party/README.txt) and [Japanese](third-party/READMEj.txt)
