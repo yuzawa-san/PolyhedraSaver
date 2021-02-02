@@ -64,7 +64,11 @@ class PolyhedraSettingsController: NSObject {
         fixedColorCheckbox.state = settings.fixedColor == nil ? .off : .on
         fixedColorWell.color = settings.fixedColor ?? NSColor.red
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
-            informationLabel.stringValue = "Version " + text + " by yuzawa-san"
+            informationLabel.stringValue =
+                "PolyhedraSaver by yuzawa-san\n" +
+                "Version " + text + "\n" +
+                "Please star on GitHub for Homebrew updates\n" +
+                "See README for polyhedra attribution information"
         }
     }
 

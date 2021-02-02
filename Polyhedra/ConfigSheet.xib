@@ -17,14 +17,14 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="640" height="495"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="contentRect" x="196" y="240" width="640" height="544"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="640" height="495"/>
+                <rect key="frame" x="0.0" y="0.0" width="640" height="544"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7w-Fb-UES">
-                        <rect key="frame" x="18" y="47" width="95" height="18"/>
+                        <rect key="frame" x="18" y="96" width="95" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Fixed Color" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xQk-U3-xb7">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -32,12 +32,12 @@
                         </buttonCell>
                     </button>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IvE-d5-PCC">
-                        <rect key="frame" x="121" y="44" width="44" height="23"/>
+                        <rect key="frame" x="121" y="93" width="44" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </colorWell>
                     <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3si-aF-tk4">
-                        <rect key="frame" x="20" y="75" width="600" height="400"/>
+                        <rect key="frame" x="20" y="124" width="600" height="400"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="sEP-6N-eyh">
                             <rect key="frame" x="1" y="1" width="598" height="398"/>
@@ -118,16 +118,16 @@
                         </scroller>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K0G-bs-Wwb">
-                        <rect key="frame" x="18" y="20" width="403" height="14"/>
+                        <rect key="frame" x="18" y="33" width="310" height="56"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Hrs-Hk-KY0">
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label x y z" id="Hrs-Hk-KY0">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Dv-MM-MuB">
-                        <rect key="frame" x="553" y="13" width="74" height="32"/>
+                        <rect key="frame" x="553" y="26" width="74" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ogv-6g-y1I">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -141,7 +141,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zya-ce-nza">
-                        <rect key="frame" x="479" y="13" width="76" height="32"/>
+                        <rect key="frame" x="479" y="26" width="76" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Aca-50-3ZF">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -154,20 +154,23 @@ Gw
                             <action selector="cancel:" target="-2" id="b3r-32-YKK"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mz6-ZA-5sZ">
-                        <rect key="frame" x="457" y="18" width="21" height="24"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tSZ-zS-rmm">
+                        <rect key="frame" x="392" y="26" width="77" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarGetInfoTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ie2-Jz-Ay6">
+                        <buttonCell key="cell" type="push" title="GitHub" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gpa-bQ-NOk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                         </buttonCell>
                         <connections>
-                            <action selector="info:" target="-2" id="GXG-Le-QWC"/>
+                            <action selector="info:" target="-2" id="ZfC-5P-Xhz"/>
                         </connections>
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-89" y="56.5"/>
+            <point key="canvasLocation" x="-89" y="81"/>
         </window>
         <customObject id="d3v-Cp-snb" customClass="PolyhedraSettingsController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
@@ -178,7 +181,4 @@ Gw
             </connections>
         </customObject>
     </objects>
-    <resources>
-        <image name="NSTouchBarGetInfoTemplate" width="15" height="15"/>
-    </resources>
 </document>
