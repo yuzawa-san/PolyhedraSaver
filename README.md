@@ -18,7 +18,7 @@ Dozens of common polyhedra are included:
 * [Prisms](https://en.wikipedia.org/wiki/Prism_%28geometry%29) (P) - first ten (of infinite)
 * [Antiprisms](https://en.wikipedia.org/wiki/Antiprism) (A) - first ten (of infinite)
 
-Coordinate data attribution:
+## Coordinate Data Attribution
 
 * **[ja]** 小林光夫, [鈴木卓治](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/): [正多角形を面にもつすべての凸多面体の頂点座標の計算](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00), 電気通信大学紀要 編 5(2) 1992.12 p.p147～184  
 **[en]** Kobayashi, M., [Suzuki, T.](https://www.rekihaku.ac.jp/research/researcher/suzuki_takuzi/), "[Calculation of Coordinates of Vertices of All Convex Polyhedra with Regular Faces](https://ndlonline.ndl.go.jp/#!/detail/R300000002-I3803620-00)", _Bulletin of the University of Electro-Communications_, vol. 5, no. 2, pp.147-184, Dec. 1992.  
