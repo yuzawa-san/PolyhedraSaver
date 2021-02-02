@@ -89,37 +89,34 @@ struct Polyhedron: Codable {
         return renderedPolygons
     }
 
-    private static let initialTransform = createInitialTransform()
-
-    // reflect and rotate 45 degrees in X and Y axis
-    // this is purely subjective to give a nice view of the objects.
-    static func createInitialTransform() -> matrix_float3x3 {
-        let value = sqrtf(2) / 2.0
-        var reflect = matrix_identity_float3x3
-        reflect[1, 1] = -1
-        var transformX = matrix_identity_float3x3
-        transformX[1, 1] = value
-        transformX[1, 2] = value
-        transformX[2, 1] = -value
-        transformX[2, 2] = value
-        var transformY = matrix_identity_float3x3
-        transformY[0, 0] = value
-        transformY[2, 0] = value
-        transformY[0, 2] = -value
-        transformY[2, 2] = value
-        return transformX * reflect * transformY
-    }
-
-    // rotate in the Z axis
-    static func transform(radians: Float) -> matrix_float3x3 {
+    private static func rotate(radians: Float, axis: String) -> matrix_float3x3 {
         let cosine = cosf(radians)
         let sine = sinf(radians)
-        var transformZ = matrix_identity_float3x3
-        transformZ[0, 0] = cosine
-        transformZ[1, 1] = cosine
-        transformZ[0, 1] = sine
-        transformZ[1, 0] = -sine
-        return initialTransform * transformZ
+        var transform = matrix_identity_float3x3
+        if axis == "x" {
+            transform[1, 1] = cosine
+            transform[2, 2] = cosine
+            transform[2, 1] = sine
+            transform[1, 2] = -sine
+        } else if axis == "y" {
+            transform[0, 0] = cosine
+            transform[2, 2] = cosine
+            transform[0, 2] = sine
+            transform[2, 0] = -sine
+        } else if axis == "z" {
+            transform[0, 0] = cosine
+            transform[1, 1] = cosine
+            transform[1, 0] = sine
+            transform[0, 1] = -sine
+        }
+        return transform
+    }
+
+    private static func transform(radians: Float) -> matrix_float3x3 {
+        return
+            rotate(radians: Float.pi / 4, axis: "z") *
+            rotate(radians: Float.pi / 4, axis: "y") *
+            rotate(radians: radians, axis: "x")
     }
 }
 
