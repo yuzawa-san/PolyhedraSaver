@@ -34,7 +34,7 @@ The original data from Kobayashi and Suzuki lacks an SPDX license, but states th
 
 ## Installation
 
-The minimum build target is macOS 10.13. Manual installation or Homebrew installation is available.
+The minimum build target is macOS 10.15 (Catalina) for [technical ](https://developer.apple.com/forums/thread/89482?answerId=268962022#268962022) [reasons](https://github.com/JohnCoates/Aerial/issues/1149). Manual installation or Homebrew installation is available.
 
 * Download a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases).
 * Open `Polyhedra.saver.zip` to uncompress.
