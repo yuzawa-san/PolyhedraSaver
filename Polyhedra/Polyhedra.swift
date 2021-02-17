@@ -1,8 +1,8 @@
 import Cocoa
 import simd
 
-// this is used in a set of edges which need to be rendered
-struct VisibleEdge: Hashable {
+// this is used in a set of edges to classify whether it is visible
+struct Edge: Hashable {
     let startPointIdx: Int
     let endPointIdx: Int
 
@@ -20,23 +20,31 @@ struct VisibleEdge: Hashable {
 
 struct CachedRendering {
     let points: [CGPoint]
-    let edges: [VisibleEdge]
-    let color: NSColor
+    let edges: [Edge: Bool]
+    let frontColor: NSColor
+    let backColor: NSColor
 
-    func render(position: CGPoint, radius: CGFloat) -> NSBezierPath {
+    func render(position: CGPoint, radius: CGFloat, lineWidth: CGFloat) {
         let mappedPoints = points.map { CGPoint(
             x: CGFloat(position.x + radius + radius * $0.x),
             y: CGFloat(position.y + radius - radius * -$0.y)
         ) }
         // draw edges
-        let path = NSBezierPath()
-        for edge in edges {
+        let frontPath = NSBezierPath()
+        let backPath = NSBezierPath()
+        for (edge, visible) in edges {
             let startPoint = mappedPoints[edge.startPointIdx]
             let endPoint = mappedPoints[edge.endPointIdx]
+            let path = visible ? frontPath : backPath
             path.move(to: startPoint)
             path.line(to: endPoint)
         }
-        return path
+        backColor.set()
+        backPath.lineWidth = lineWidth
+        backPath.stroke()
+        frontColor.set()
+        frontPath.lineWidth = lineWidth
+        frontPath.stroke()
     }
 }
 
@@ -47,13 +55,14 @@ struct Polyhedron: Codable {
 
     private static let camera = vector_float3(0, 0, 1)
 
-    func generateCachedRendering(_ degrees: Int) -> CachedRendering {
+    func generateCachedRendering(degrees: Int, color: NSColor) -> CachedRendering {
         // do a transformation
         let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
         let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
         let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
         // do back-face culling
-        var edges = Set<VisibleEdge>()
+        var allEdges = Set<Edge>()
+        var visibleEdges = Set<Edge>()
         for face in faces {
             let point0 = transformedVertices[face[0]]
             let point1 = transformedVertices[face[1]]
@@ -63,28 +72,38 @@ struct Polyhedron: Codable {
             let normal = simd_normalize(simd_cross(edge0, edge1))
             let dot = simd_dot(normal, Polyhedron.camera)
             let angle = acosf(dot / (simd_length(normal) * simd_length(Polyhedron.camera)))
-            if angle > Float.pi / 2 {
-                // the face's normal is facing away from the camera
-                continue
-            }
+            var edges = [Edge]()
             // the face is visible, so make sure we draw the edges
-            edges.insert(VisibleEdge(idx0: face.first!, idx1: face.last!))
+            edges.append(Edge(idx0: face.first!, idx1: face.last!))
             for (vertexIdx, idx1) in face.dropLast().enumerated() {
                 let idx0 = face[vertexIdx + 1]
-                edges.insert(VisibleEdge(idx0: idx0, idx1: idx1))
+                edges.append(Edge(idx0: idx0, idx1: idx1))
+            }
+            for edge in edges {
+                allEdges.insert(edge)
+                if angle <= Float.pi / 2 {
+                    // the face's normal is facing towards from the camera
+                    visibleEdges.insert(edge)
+                }
             }
         }
-        // simple interpolation on hue from degrees
-        let hue = CGFloat(degrees) / 360.0
-        let color = NSColor(calibratedHue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        return CachedRendering(points: points, edges: Array(edges), color: color)
+        var edges = [Edge: Bool]()
+        for edge in allEdges {
+            edges[edge] = visibleEdges.contains(edge)
+        }
+        let backColor = color.withAlphaComponent(0.25)
+        return CachedRendering(points: points, edges: edges, frontColor: color, backColor: backColor)
     }
 
-    func generateCachedRenderings() -> [CachedRendering] {
+    func generateCachedRenderings(color: NSColor?) -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
         // precompute all of the rotations
         for degrees in 0 ..< 360 {
-            renderedPolygons.append(generateCachedRendering(degrees))
+            // simple interpolation on hue from degrees
+            let hue = CGFloat(degrees) / 360.0
+            let effectiveColor = color ?? NSColor(calibratedHue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor)
+            renderedPolygons.append(cachedRendering)
         }
         return renderedPolygons
     }
@@ -159,7 +178,7 @@ class PolyhedraRegistry {
         for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
-            let cachedRendering = polyhedron.generateCachedRendering(45)
+            let cachedRendering = polyhedron.generateCachedRendering(degrees: 45, color: .textColor)
             polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
         }
         return polyhedraRows

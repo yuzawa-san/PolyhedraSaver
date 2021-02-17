@@ -43,7 +43,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         settings = PolyhedraSettings()
-        cachedRenderings = settings.getPolyhedron().generateCachedRenderings()
+        cachedRenderings = settings.getPolyhedron().generateCachedRenderings(color: settings.fixedColor)
         super.startAnimation()
     }
 
@@ -70,10 +70,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         }
         // fetch a cached rendering
         let cachedRendering = cachedRenderings[rotation]
-        let path = cachedRendering.render(position: position, radius: radius)
-        (settings.fixedColor ?? cachedRendering.color).set()
-        path.lineWidth = 1
-        path.stroke()
+        cachedRendering.render(position: position, radius: radius, lineWidth: 1)
         // draw polyhedron name
         if settings.shouldShowPolyhedronName() {
             settings.getPolyhedron().name.draw(in: textRect, withAttributes: textAttributes)

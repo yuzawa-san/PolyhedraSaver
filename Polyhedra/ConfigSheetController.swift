@@ -129,9 +129,6 @@ class PolyhedronCellView: NSTableCellView {
             return
         }
         let origin = CGPoint(x: frame.width * 0.05, y: frame.width * 0.05)
-        let path = cachedRendering!.render(position: origin, radius: frame.width * 0.45)
-        NSColor.textColor.set()
-        path.lineWidth = 0.5
-        path.stroke()
+        cachedRendering!.render(position: origin, radius: frame.width * 0.45, lineWidth: 0.5)
     }
 }
