@@ -178,7 +178,7 @@ class PolyhedraRegistry {
         for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
-            let cachedRendering = polyhedron.generateCachedRendering(degrees: 45, color: .textColor)
+            let cachedRendering = polyhedron.generateCachedRendering(degrees: 60, color: .textColor)
             polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
         }
         return polyhedraRows
