@@ -99,9 +99,7 @@ struct Polyhedron: Codable {
         var renderedPolygons = [CachedRendering]()
         // precompute all of the rotations
         for degrees in 0 ..< 360 {
-            // simple interpolation on hue from degrees
-            let hue = CGFloat(degrees) / 360.0
-            let effectiveColor = color ?? NSColor(calibratedHue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            let effectiveColor = color ?? PolyhedraRegistry.colors[degrees]
             let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor)
             renderedPolygons.append(cachedRendering)
         }
@@ -141,6 +139,7 @@ struct Polyhedron: Codable {
 
 class PolyhedraRegistry {
     static let all: [Polyhedron] = loadPolyhedra()
+    static let colors: [NSColor] = loadColors()
     static let randomWithoutName = "Random (without name)"
     static let randomWithName = "Random"
     static let defaultName = randomWithName
@@ -156,6 +155,28 @@ class PolyhedraRegistry {
             fatalError("Failed to decode polyhedra from bundle.")
         }
         return loaded
+    }
+
+    private static func loadColors() -> [NSColor] {
+        let bundle = Bundle(for: PolyhedraRegistry.self)
+        let decoder = JSONDecoder()
+        guard
+            let url = bundle.url(forResource: "colors.json", withExtension: nil),
+            let data = try? Data(contentsOf: url),
+            let loaded = try? decoder.decode([String].self, from: data)
+        else {
+            fatalError("Failed to decode polyhedra from bundle.")
+        }
+        return loaded.map { (hexString) -> NSColor in
+            var hex: UInt64 = 0
+                Scanner(string: hexString).scanHexInt64(&hex)
+            return NSColor(
+                red: CGFloat((hex & 0xFF0000) >> 16) / 255.0,
+                green: CGFloat((hex & 0xFF00) >> 8) / 255.0,
+                blue: CGFloat((hex & 0xFF)) / 255.0,
+                alpha: 1.0
+            )
+        }
     }
 
     static func forName(_ name: String) -> Polyhedron {
