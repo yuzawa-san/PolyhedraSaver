@@ -138,36 +138,27 @@ struct Polyhedron: Codable {
 }
 
 class PolyhedraRegistry {
-    static let all: [Polyhedron] = loadPolyhedra()
+    static let all: [Polyhedron] = loadJson([Polyhedron].self, forResource: "polyhedra.json")
     static let colors: [NSColor] = loadColors()
     static let randomWithoutName = "Random (without name)"
     static let randomWithName = "Random"
     static let defaultName = randomWithName
 
-    private static func loadPolyhedra() -> [Polyhedron] {
+    private static func loadJson<T>(_ type: T.Type, forResource: String) -> T where T: Decodable {
         let bundle = Bundle(for: PolyhedraRegistry.self)
         let decoder = JSONDecoder()
         guard
-            let url = bundle.url(forResource: "polyhedra.json", withExtension: nil),
+            let url = bundle.url(forResource: forResource, withExtension: nil),
             let data = try? Data(contentsOf: url),
-            let loaded = try? decoder.decode([Polyhedron].self, from: data)
+            let loaded = try? decoder.decode(type, from: data)
         else {
-            fatalError("Failed to decode polyhedra from bundle.")
+            fatalError("Failed to decode JSON from bundle.")
         }
         return loaded
     }
 
     private static func loadColors() -> [NSColor] {
-        let bundle = Bundle(for: PolyhedraRegistry.self)
-        let decoder = JSONDecoder()
-        guard
-            let url = bundle.url(forResource: "colors.json", withExtension: nil),
-            let data = try? Data(contentsOf: url),
-            let loaded = try? decoder.decode([String].self, from: data)
-        else {
-            fatalError("Failed to decode colors from bundle.")
-        }
-        return loaded.map { (hexString) -> NSColor in
+        return PolyhedraRegistry.loadJson([String].self, forResource: "colors.json").map { (hexString) -> NSColor in
             var hex: UInt64 = 0
             Scanner(string: hexString).scanHexInt64(&hex)
             return NSColor(
