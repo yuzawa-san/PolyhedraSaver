@@ -7,7 +7,7 @@ from hsluv import hsluv_to_rgb
 
 out = []
 for x in range(0,360):
-    (r,g,b) = hsluv_to_rgb([x, 100, 60])
+    (r,g,b) = hsluv_to_rgb([x, 100, 50])
     r = int(abs(r) * 255)
     g = int(abs(g) * 255)
     b = int(abs(b) * 255)
