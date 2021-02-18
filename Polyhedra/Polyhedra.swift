@@ -165,7 +165,7 @@ class PolyhedraRegistry {
             let data = try? Data(contentsOf: url),
             let loaded = try? decoder.decode([String].self, from: data)
         else {
-            fatalError("Failed to decode polyhedra from bundle.")
+            fatalError("Failed to decode colors from bundle.")
         }
         return loaded.map { (hexString) -> NSColor in
             var hex: UInt64 = 0
