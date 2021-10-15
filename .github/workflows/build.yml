@@ -15,7 +15,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
       - name: Get the configuration
         id: get_configuration
         run: |
