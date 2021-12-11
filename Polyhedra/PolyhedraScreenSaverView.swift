@@ -51,6 +51,13 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         super.startAnimation()
     }
 
+    override func stopAnimation() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+        super.stopAnimation()
+    }
+
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
