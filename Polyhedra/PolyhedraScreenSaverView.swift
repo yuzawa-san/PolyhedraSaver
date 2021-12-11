@@ -14,10 +14,10 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         super.init(frame: frame, isPreview: isPreview)
         if isPreview {
             radius = 25
-            velocity = CGVector(dx: 5, dy: 5)
+            velocity = CGVector(dx: 7, dy: 7)
         } else {
             radius = 150
-            velocity = CGVector(dx: 10, dy: 10)
+            velocity = CGVector(dx: 15, dy: 15)
         }
         // make sure polyhedron (2 * radius in width) does not got off screen
         maxX = frame.width - 2 * radius
@@ -25,7 +25,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         // place at a random point in the frame
         position.x = CGFloat.random(in: 0 ..< maxX)
         position.y = CGFloat.random(in: 0 ..< maxY)
-        animationTimeInterval = 1.0 / 30
+        animationTimeInterval = 1.0 / 20
     }
 
     override func startAnimation() {
