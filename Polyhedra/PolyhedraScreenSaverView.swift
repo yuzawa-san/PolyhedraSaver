@@ -67,16 +67,16 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     override func animateOneFrame() {
         super.animateOneFrame()
         // update object position
-        position.x += velocity.dx
-        let positionX = position.x
+        let positionX = position.x + velocity.dx
         if positionX < 0 || positionX > maxX {
             velocity.dx *= -1
         }
-        position.y += velocity.dy
-        let positionY = position.y
+        position.x += velocity.dx
+        let positionY = position.y + velocity.dy
         if positionY < 0 || positionY > maxY {
             velocity.dy *= -1
         }
+        position.y += velocity.dy
         polyhedronView!.setFrameOrigin(position)
         polyhedronView!.rotate()
     }
