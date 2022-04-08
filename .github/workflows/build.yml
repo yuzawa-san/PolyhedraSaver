@@ -27,7 +27,7 @@ jobs:
       - name: Stage Artifact
         run: mkdir bundle && cp -r build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver bundle/
       - name: 'Store Artifact'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Polyhedra.saver
           path: bundle/
