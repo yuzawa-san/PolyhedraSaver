@@ -44,8 +44,9 @@ class PolyhedraSettingsController: NSObject {
     @IBOutlet var fixedColorWell: NSColorWell!
     @IBOutlet var informationLabel: NSTextField!
 
+    private static let radius: CGFloat = 24
     private let settings = PolyhedraSettings()
-    private let rows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows()
+    private let rows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows(radius: radius)
     private let currentBundle = Bundle(for: PolyhedraSettingsController.self)
 
     override init() {
@@ -115,7 +116,7 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
     }
 
     func tableView(_: NSTableView, heightOfRow _: Int) -> CGFloat {
-        return 48
+        return PolyhedraSettingsController.radius * 2
     }
 }
 
@@ -128,7 +129,6 @@ class PolyhedronCellView: NSTableCellView {
         if cachedRendering == nil {
             return
         }
-        let origin = CGPoint(x: frame.width * 0.05, y: frame.width * 0.05)
-        cachedRendering!.render(position: origin, radius: frame.width * 0.45, lineWidth: 0.5)
+        cachedRendering!.render(lineWidth: 0.5)
     }
 }

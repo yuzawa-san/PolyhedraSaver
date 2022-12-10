@@ -45,7 +45,9 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             labelView.textColor = color
             labelView.stringValue = settings.getPolyhedron().name
         }
-        let cachedRenderings = settings.getPolyhedron().generateCachedRenderings(color: settings.fixedColor)
+        let cachedRenderings = settings.getPolyhedron().generateCachedRenderings(
+            radius: radius,
+            color: settings.fixedColor)
         polyhedronView = PolyhedronView(origin: position, radius: radius, cachedRenderings: cachedRenderings)
         addSubview(polyhedronView!)
         super.startAnimation()
@@ -74,13 +76,18 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     override func animateOneFrame() {
         super.animateOneFrame()
         // update object position
+        let drawingRect = polyhedronView!.getDrawBounds()
         let positionX = position.x + velocity.dx
-        if positionX < 0 || positionX > maxX {
+        let leftX = positionX + drawingRect.minX
+        let rightX = positionX - 2 * radius + drawingRect.maxX
+        if leftX < 0 || rightX > maxX {
             velocity.dx *= -1
         }
         position.x += velocity.dx
         let positionY = position.y + velocity.dy
-        if positionY < 0 || positionY > maxY {
+        let bottomY = positionY + drawingRect.minY
+        let topY = positionY - 2 * radius + drawingRect.maxY
+        if bottomY < 0 || topY > maxY {
             velocity.dy *= -1
         }
         position.y += velocity.dy

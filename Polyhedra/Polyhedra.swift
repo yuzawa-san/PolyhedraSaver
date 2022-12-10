@@ -21,20 +21,19 @@ struct Edge: Hashable {
 struct CachedRendering {
     let points: [CGPoint]
     let edges: [Edge: Bool]
+    let bounds: CGRect
     let frontColor: NSColor
     let backColor: NSColor
 
-    func render(position: CGPoint, radius: CGFloat, lineWidth: CGFloat) {
-        let mappedPoints = points.map { CGPoint(
-            x: CGFloat(position.x + radius + radius * $0.x),
-            y: CGFloat(position.y + radius - radius * -$0.y)
-        ) }
+    func render(lineWidth: CGFloat) {
+        backColor.set()
+        NSBezierPath.fill(bounds)
         // draw edges
         let frontPath = NSBezierPath()
         let backPath = NSBezierPath()
         for (edge, visible) in edges {
-            let startPoint = mappedPoints[edge.startPointIdx]
-            let endPoint = mappedPoints[edge.endPointIdx]
+            let startPoint = points[edge.startPointIdx]
+            let endPoint = points[edge.endPointIdx]
             let path = visible ? frontPath : backPath
             path.move(to: startPoint)
             path.line(to: endPoint)
@@ -55,11 +54,14 @@ struct Polyhedron: Codable {
 
     private static let camera = vector_float3(0, 0, 1)
 
-    func generateCachedRendering(degrees: Int, color: NSColor) -> CachedRendering {
+    func generateCachedRendering(degrees: Int, color: NSColor, radius: CGFloat) -> CachedRendering {
         // do a transformation
         let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
         let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
-        let points = transformedVertices.map { CGPoint(x: CGFloat($0.x), y: CGFloat($0.y)) }
+        let points = transformedVertices.map { CGPoint(
+            x: radius + radius * CGFloat($0.x),
+            y: radius - radius * -CGFloat($0.y)
+        ) }
         // do back-face culling
         var allEdges = Set<Edge>()
         var visibleEdges = Set<Edge>()
@@ -92,15 +94,26 @@ struct Polyhedron: Codable {
             edges[edge] = visibleEdges.contains(edge)
         }
         let backColor = color.withAlphaComponent(0.25)
-        return CachedRendering(points: points, edges: edges, frontColor: color, backColor: backColor)
+        var minX: CGFloat = radius
+        var minY: CGFloat = radius
+        var maxX: CGFloat = -radius
+        var maxY: CGFloat = -radius
+        for point in points {
+            minX = min(point.x, minX)
+            maxX = max(point.x, maxX)
+            minY = min(point.y, minY)
+            maxY = max(point.y, maxY)
+        }
+        let bounds = CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+        return CachedRendering(points: points, edges: edges, bounds: bounds, frontColor: color, backColor: backColor)
     }
 
-    func generateCachedRenderings(color: NSColor?) -> [CachedRendering] {
+    func generateCachedRenderings(radius: CGFloat, color: NSColor?) -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
         // precompute all of the rotations
         for degrees in 0 ..< 360 {
             let effectiveColor = color ?? PolyhedraRegistry.colors[degrees]
-            let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor)
+            let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor, radius: radius)
             renderedPolygons.append(cachedRendering)
         }
         return renderedPolygons
@@ -183,14 +196,14 @@ class PolyhedraRegistry {
         return all[0]
     }
 
-    static func generateRows() -> [PolyhedronCellInfo] {
+    static func generateRows(radius: CGFloat) -> [PolyhedronCellInfo] {
         var polyhedraRows: [PolyhedronCellInfo] = []
         polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomWithName, cachedRendering: nil))
         polyhedraRows.append(PolyhedronCellInfo(name: PolyhedraRegistry.randomWithoutName, cachedRendering: nil))
         for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
-            let cachedRendering = polyhedron.generateCachedRendering(degrees: 60, color: .textColor)
+            let cachedRendering = polyhedron.generateCachedRendering(degrees: 60, color: .textColor, radius: radius)
             polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
         }
         return polyhedraRows
