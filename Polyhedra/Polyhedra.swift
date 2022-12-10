@@ -18,16 +18,21 @@ struct Edge: Hashable {
     }
 }
 
+struct BoundingBox {
+    let right: CGFloat
+    let left: CGFloat
+    let top: CGFloat
+    let bottom: CGFloat
+}
+
 struct CachedRendering {
     let points: [CGPoint]
     let edges: [Edge: Bool]
-    let bounds: CGRect
+    let boundingBox: BoundingBox
     let frontColor: NSColor
     let backColor: NSColor
 
     func render(lineWidth: CGFloat) {
-        backColor.set()
-        NSBezierPath.fill(bounds)
         // draw edges
         let frontPath = NSBezierPath()
         let backPath = NSBezierPath()
@@ -104,8 +109,9 @@ struct Polyhedron: Codable {
             minY = min(point.y, minY)
             maxY = max(point.y, maxY)
         }
-        let bounds = CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
-        return CachedRendering(points: points, edges: edges, bounds: bounds, frontColor: color, backColor: backColor)
+        let boundingBox = BoundingBox(right: 2 * radius - maxX, left: minX, top: 2 * radius - maxY, bottom: minY)
+        return CachedRendering(points: points, edges: edges, boundingBox: boundingBox, frontColor: color,
+                               backColor: backColor)
     }
 
     func generateCachedRenderings(radius: CGFloat, color: NSColor?) -> [CachedRendering] {

@@ -14,8 +14,8 @@ class PolyhedronView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func getDrawBounds() -> CGRect {
-        return cachedRenderings[rotation].bounds
+    func getBoundingBox() -> BoundingBox {
+        return cachedRenderings[rotation].boundingBox
     }
 
     func rotate() {
