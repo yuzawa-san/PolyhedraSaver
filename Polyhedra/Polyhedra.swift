@@ -49,14 +49,15 @@ struct Polyhedron: Codable {
     let vertices: [[Float]]
     let faces: [[Int]]
 
+    private static let scaleFactor = CGFloat(NSScreen.main!.backingScaleFactor)
     private static let camera = vector_float3(0, 0, 1)
 
-    private func generateImage(radius: CGFloat, lineWidth: CGFloat, points: [CGPoint], edges: [Edge: Bool],
+    private func generateImage(size: CGSize, lineWidth: CGFloat, points: [CGPoint], edges: [Edge: Bool],
                                color: NSColor) -> NSImage {
         let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
-            pixelsWide: Int(radius * 2),
-            pixelsHigh: Int(radius * 2),
+            pixelsWide: Int(size.width * Polyhedron.scaleFactor),
+            pixelsHigh: Int(size.width * Polyhedron.scaleFactor),
             bitsPerSample: 8,
             samplesPerPixel: 4,
             hasAlpha: true,
@@ -64,7 +65,7 @@ struct Polyhedron: Codable {
             colorSpaceName: NSColorSpaceName.calibratedRGB,
             bytesPerRow: 0,
             bitsPerPixel: 0)
-
+        rep?.size = size
         let context = NSGraphicsContext(bitmapImageRep: rep!)
 
         NSGraphicsContext.saveGraphicsState()
@@ -90,7 +91,7 @@ struct Polyhedron: Codable {
 
         NSGraphicsContext.restoreGraphicsState()
 
-        let image = NSImage(size: CGSize(width: radius * 2, height: radius * 2))
+        let image = NSImage(size: size)
         image.addRepresentation(rep!)
         return image
     }
@@ -135,7 +136,8 @@ struct Polyhedron: Codable {
             edges[edge] = visibleEdges.contains(edge)
         }
         let boundingBox = BoundingBox.generate(points: points, radius: radius)
-        let image = generateImage(radius: radius, lineWidth: lineWidth, points: points, edges: edges, color: color)
+        let size = CGSize(width: radius * 2, height: radius * 2)
+        let image = generateImage(size: size, lineWidth: lineWidth, points: points, edges: edges, color: color)
         return CachedRendering( boundingBox: boundingBox, image: image)
     }
 
