@@ -97,11 +97,11 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
         if key == "preview" {
             guard let cellView = tableView.makeView(withIdentifier:
                 tableColumn!.identifier,
-                owner: self) as? PolyhedronCellView
+                owner: self) as? NSTableCellView
             else {
                 return nil
             }
-            cellView.cachedRendering = polyhedraRow.cachedRendering
+            cellView.imageView!.image = polyhedraRow.cachedRendering?.image
             return cellView
         } else {
             guard let cellView = tableView.makeView(withIdentifier:
@@ -117,18 +117,5 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
 
     func tableView(_: NSTableView, heightOfRow _: Int) -> CGFloat {
         return PolyhedraSettingsController.radius * 2
-    }
-}
-
-class PolyhedronCellView: NSTableCellView {
-    var cachedRendering: CachedRendering?
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        NSColor.clear.setFill()
-        bounds.fill()
-        if cachedRendering == nil {
-            return
-        }
-        cachedRendering!.render(lineWidth: 0.5)
     }
 }

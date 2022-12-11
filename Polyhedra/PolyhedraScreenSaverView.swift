@@ -8,7 +8,9 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     private var maxY: CGFloat = .zero
     private lazy var sheetController = ConfigSheetController()
     private var settings = PolyhedraSettings()
-    private var polyhedronView: PolyhedronView?
+    private var rotation: Int = .zero
+    private var polyhedronView: NSImageView?
+    private var cachedRenderings: [CachedRendering] = []
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -45,10 +47,12 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             labelView.textColor = color
             labelView.stringValue = settings.getPolyhedron().name
         }
-        let cachedRenderings = settings.getPolyhedron().generateCachedRenderings(
-            radius: radius,
+        cachedRenderings = settings.getPolyhedron().generateCachedRenderings(
+            radius: radius, lineWidth: 1,
             color: settings.fixedColor)
-        polyhedronView = PolyhedronView(origin: position, radius: radius, cachedRenderings: cachedRenderings)
+        polyhedronView = NSImageView(frame: NSRect(origin: position,
+                                                   size: NSSize(width: 2 * radius, height: 2 * radius)))
+        polyhedronView?.imageScaling = .scaleNone
         addSubview(polyhedronView!)
         super.startAnimation()
     }
@@ -75,8 +79,8 @@ class PolyhedraScreenSaverView: ScreenSaverView {
 
     override func animateOneFrame() {
         super.animateOneFrame()
-        // update object position
-        let boundingBox = polyhedronView!.getBoundingBox()
+        let rendering = cachedRenderings[rotation]
+        let boundingBox = rendering.boundingBox
         let positionX = position.x + velocity.dx
         let left = positionX + boundingBox.left
         let right = positionX - boundingBox.right
@@ -92,6 +96,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         }
         position.y += velocity.dy
         polyhedronView!.setFrameOrigin(position)
-        polyhedronView!.rotate()
+        rotation = (rotation + 1) % cachedRenderings.count
+        polyhedronView!.image = rendering.image
     }
 }

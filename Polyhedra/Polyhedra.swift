@@ -23,16 +23,53 @@ struct BoundingBox {
     let left: CGFloat
     let top: CGFloat
     let bottom: CGFloat
+
+    static func generate(points: [CGPoint], radius: CGFloat) -> BoundingBox {
+        var minX: CGFloat = radius
+        var minY: CGFloat = radius
+        var maxX: CGFloat = -radius
+        var maxY: CGFloat = -radius
+        for point in points {
+            minX = min(point.x, minX)
+            maxX = max(point.x, maxX)
+            minY = min(point.y, minY)
+            maxY = max(point.y, maxY)
+        }
+        return BoundingBox(right: 2 * radius - maxX, left: minX, top: 2 * radius - maxY, bottom: minY)
+    }
 }
 
 struct CachedRendering {
-    let points: [CGPoint]
-    let edges: [Edge: Bool]
     let boundingBox: BoundingBox
-    let frontColor: NSColor
-    let backColor: NSColor
+    let image: NSImage
+}
 
-    func render(lineWidth: CGFloat) {
+struct Polyhedron: Codable {
+    let name: String
+    let vertices: [[Float]]
+    let faces: [[Int]]
+
+    private static let camera = vector_float3(0, 0, 1)
+
+    private func generateImage(radius: CGFloat, lineWidth: CGFloat, points: [CGPoint], edges: [Edge: Bool],
+                               color: NSColor) -> NSImage {
+        let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: Int(radius * 2),
+            pixelsHigh: Int(radius * 2),
+            bitsPerSample: 8,
+            samplesPerPixel: 4,
+            hasAlpha: true,
+            isPlanar: false,
+            colorSpaceName: NSColorSpaceName.calibratedRGB,
+            bytesPerRow: 0,
+            bitsPerPixel: 0)
+
+        let context = NSGraphicsContext(bitmapImageRep: rep!)
+
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = context
+
         // draw edges
         let frontPath = NSBezierPath()
         let backPath = NSBezierPath()
@@ -43,23 +80,22 @@ struct CachedRendering {
             path.move(to: startPoint)
             path.line(to: endPoint)
         }
+        let backColor = color.withAlphaComponent(0.25)
         backColor.set()
         backPath.lineWidth = lineWidth
         backPath.stroke()
-        frontColor.set()
+        color.set()
         frontPath.lineWidth = lineWidth
         frontPath.stroke()
+
+        NSGraphicsContext.restoreGraphicsState()
+
+        let image = NSImage(size: CGSize(width: radius * 2, height: radius * 2))
+        image.addRepresentation(rep!)
+        return image
     }
-}
 
-struct Polyhedron: Codable {
-    let name: String
-    let vertices: [[Float]]
-    let faces: [[Int]]
-
-    private static let camera = vector_float3(0, 0, 1)
-
-    func generateCachedRendering(degrees: Int, color: NSColor, radius: CGFloat) -> CachedRendering {
+    func generateCachedRendering(degrees: Int, color: NSColor, radius: CGFloat, lineWidth: CGFloat) -> CachedRendering {
         // do a transformation
         let transformation = Polyhedron.transform(radians: Float(degrees) * Float.pi / 180.0)
         let transformedVertices = vertices.map { transformation * vector_float3(x: $0[0], y: $0[1], z: $0[2]) }
@@ -98,28 +134,18 @@ struct Polyhedron: Codable {
         for edge in allEdges {
             edges[edge] = visibleEdges.contains(edge)
         }
-        let backColor = color.withAlphaComponent(0.25)
-        var minX: CGFloat = radius
-        var minY: CGFloat = radius
-        var maxX: CGFloat = -radius
-        var maxY: CGFloat = -radius
-        for point in points {
-            minX = min(point.x, minX)
-            maxX = max(point.x, maxX)
-            minY = min(point.y, minY)
-            maxY = max(point.y, maxY)
-        }
-        let boundingBox = BoundingBox(right: 2 * radius - maxX, left: minX, top: 2 * radius - maxY, bottom: minY)
-        return CachedRendering(points: points, edges: edges, boundingBox: boundingBox, frontColor: color,
-                               backColor: backColor)
+        let boundingBox = BoundingBox.generate(points: points, radius: radius)
+        let image = generateImage(radius: radius, lineWidth: lineWidth, points: points, edges: edges, color: color)
+        return CachedRendering( boundingBox: boundingBox, image: image)
     }
 
-    func generateCachedRenderings(radius: CGFloat, color: NSColor?) -> [CachedRendering] {
+    func generateCachedRenderings(radius: CGFloat, lineWidth: CGFloat, color: NSColor?) -> [CachedRendering] {
         var renderedPolygons = [CachedRendering]()
         // precompute all of the rotations
         for degrees in 0 ..< 360 {
             let effectiveColor = color ?? PolyhedraRegistry.colors[degrees]
-            let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor, radius: radius)
+            let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor,
+                                                          radius: radius, lineWidth: lineWidth)
             renderedPolygons.append(cachedRendering)
         }
         return renderedPolygons
@@ -209,7 +235,8 @@ class PolyhedraRegistry {
         for polyhedron in PolyhedraRegistry.all.sorted(by: { (polyhedron0, polyhedron1) -> Bool in
             polyhedron0.name < polyhedron1.name
         }) {
-            let cachedRendering = polyhedron.generateCachedRendering(degrees: 60, color: .textColor, radius: radius)
+            let cachedRendering = polyhedron.generateCachedRendering(degrees: 60, color: .textColor,
+                                                                     radius: radius, lineWidth: 0.5)
             polyhedraRows.append(PolyhedronCellInfo(name: polyhedron.name, cachedRendering: cachedRendering))
         }
         return polyhedraRows
