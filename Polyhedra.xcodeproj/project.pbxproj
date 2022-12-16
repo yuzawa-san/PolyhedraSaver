@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		151E30D72765217C00F50B2D /* PolyhedronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E30D62765217C00F50B2D /* PolyhedronView.swift */; };
+		151E30D72765217C00F50B2D /* PolyhedraLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E30D62765217C00F50B2D /* PolyhedraLayer.swift */; };
 		15F56DA2294BF61100F29625 /* PolyhedraFullLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F56DA1294BF61100F29625 /* PolyhedraFullLayer.swift */; };
 		FA56FE7725DDE54600CCD1A5 /* colors.json in Resources */ = {isa = PBXBuildFile; fileRef = FA56FE7625DDE54600CCD1A5 /* colors.json */; };
 		FA8AD16525A3C07A0067F17B /* polyhedra.json in Resources */ = {isa = PBXBuildFile; fileRef = FA8AD16425A3C07A0067F17B /* polyhedra.json */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		151E30D62765217C00F50B2D /* PolyhedronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedronView.swift; sourceTree = "<group>"; };
+		151E30D62765217C00F50B2D /* PolyhedraLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedraLayer.swift; sourceTree = "<group>"; };
 		15F56DA1294BF61100F29625 /* PolyhedraFullLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedraFullLayer.swift; sourceTree = "<group>"; };
 		FA56FE7625DDE54600CCD1A5 /* colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
 		FA8AD16425A3C07A0067F17B /* polyhedra.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = polyhedra.json; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 				FACBCF91259FF4810039CF3E /* PolyhedraSettings.swift */,
 				FA8AD16425A3C07A0067F17B /* polyhedra.json */,
 				FA56FE7625DDE54600CCD1A5 /* colors.json */,
-				151E30D62765217C00F50B2D /* PolyhedronView.swift */,
+				151E30D62765217C00F50B2D /* PolyhedraLayer.swift */,
 				15F56DA1294BF61100F29625 /* PolyhedraFullLayer.swift */,
 			);
 			path = Polyhedra;
@@ -210,7 +210,7 @@
 				FACBCF8F259F91690039CF3E /* ConfigSheetController.swift in Sources */,
 				FACBCF92259FF4810039CF3E /* PolyhedraSettings.swift in Sources */,
 				FACBCF82259F81630039CF3E /* Polyhedra.swift in Sources */,
-				151E30D72765217C00F50B2D /* PolyhedronView.swift in Sources */,
+				151E30D72765217C00F50B2D /* PolyhedraLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

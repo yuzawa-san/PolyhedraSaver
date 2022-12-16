@@ -1,7 +1,7 @@
 import AppKit
 
 class PolyhedraFullLayer: CALayer {
-    private let polyhedronLayer: PolyhedronView
+    private let polyhedraLayer: PolyhedraLayer
     private let cachedRenderings: [CachedRendering]
     private let radius: CGFloat
     private let maxX: CGFloat
@@ -12,7 +12,7 @@ class PolyhedraFullLayer: CALayer {
 
     public init(size: CGSize, isPreview: Bool) {
         let settings = PolyhedraSettings()
-        self.polyhedronLayer = PolyhedronView(lineWidth: 1)
+        self.polyhedraLayer = PolyhedraLayer(lineWidth: 1)
         self.radius = isPreview ? 25 : 150
         self.velocity = isPreview ? CGVector(dx: 6, dy: 6) : CGVector(dx: 12, dy: 12)
         // make sure polyhedron (2 * radius in width) does not got off screen
@@ -21,7 +21,7 @@ class PolyhedraFullLayer: CALayer {
         // place at a random point in the frame
         polyhedronPosition.x = CGFloat.random(in: 0 ..< maxX)
         polyhedronPosition.y = CGFloat.random(in: 0 ..< maxY)
-        self.polyhedronLayer.frame = CGRect(origin: polyhedronPosition,
+        self.polyhedraLayer.frame = CGRect(origin: polyhedronPosition,
                                             size: CGSize(width: radius * 2, height: radius * 2))
         let polyhedron = settings.getPolyhedron()
         self.cachedRenderings = polyhedron.generateCachedRenderings(
@@ -44,7 +44,7 @@ class PolyhedraFullLayer: CALayer {
             textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.2)
             addSublayer(textLayer)
         }
-        addSublayer(polyhedronLayer)
+        addSublayer(polyhedraLayer)
     }
 
     @available(*, unavailable)
@@ -71,7 +71,7 @@ class PolyhedraFullLayer: CALayer {
         }
         polyhedronPosition.y += velocity.dy
         rotation = (rotation + 1) % cachedRenderings.count
-        polyhedronLayer.setRendering(position: polyhedronPosition, rendering: rendering)
+        polyhedraLayer.setRendering(position: polyhedronPosition, rendering: rendering)
     }
 
 }

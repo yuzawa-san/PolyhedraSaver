@@ -1,6 +1,6 @@
 import AppKit
 
-class PolyhedronView: CALayer {
+class PolyhedraLayer: CALayer {
     private let backLayer: CAShapeLayer
     private let frontLayer: CAShapeLayer
 

@@ -103,7 +103,7 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
             }
             cellView.wantsLayer = true
             cellView.layer?.sublayers?.removeAll()
-            let polyhedronLayer = PolyhedronView(lineWidth: 0.5)
+            let polyhedronLayer = PolyhedraLayer(lineWidth: 0.5)
             polyhedronLayer.setRendering(position: .zero, rendering: polyhedraRow.cachedRendering)
             cellView.layer?.addSublayer(polyhedronLayer)
             return cellView
