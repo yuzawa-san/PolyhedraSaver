@@ -101,7 +101,11 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
             else {
                 return nil
             }
-            cellView.cachedRendering = polyhedraRow.cachedRendering
+            cellView.wantsLayer = true
+            cellView.layer?.sublayers?.removeAll()
+            let polyhedronLayer = PolyhedronView(lineWidth: 0.5)
+            polyhedronLayer.setRendering(position: .zero, rendering: polyhedraRow.cachedRendering)
+            cellView.layer?.addSublayer(polyhedronLayer)
             return cellView
         } else {
             guard let cellView = tableView.makeView(withIdentifier:
@@ -121,14 +125,4 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
 }
 
 class PolyhedronCellView: NSTableCellView {
-    var cachedRendering: CachedRendering?
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        NSColor.clear.setFill()
-        bounds.fill()
-        if cachedRendering == nil {
-            return
-        }
-        cachedRendering!.render(lineWidth: 0.5)
-    }
 }

@@ -9,6 +9,8 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     private lazy var sheetController = ConfigSheetController()
     private var settings = PolyhedraSettings()
     private var polyhedronView: PolyhedronView?
+    private var rotation: Int = .zero
+    private var cachedRenderings: [CachedRendering] = []
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -26,6 +28,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         position.x = CGFloat.random(in: 0 ..< maxX)
         position.y = CGFloat.random(in: 0 ..< maxY)
         animationTimeInterval = 1.0 / 25
+        wantsLayer = true
     }
 
     override func startAnimation() {
@@ -34,29 +37,28 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             let fontSize: CGFloat = isPreview ? 5 : 24
             // configure text
             let font = NSFont.systemFont(ofSize: fontSize)
-            let textRect = NSRect(x: fontSize, y: fontSize, width: frame.width, height: fontSize * 1.5)
-            let color = NSColor(calibratedWhite: 1.0, alpha: 0.2)
-            let labelView = NSTextField(frame: textRect)
-            addSubview(labelView)
-            labelView.font = font
-            labelView.isBezeled = false
-            labelView.isSelectable = false
-            labelView.drawsBackground = false
-            labelView.textColor = color
-            labelView.stringValue = settings.getPolyhedron().name
+            let textLayer = CATextLayer()
+            textLayer.contentsScale = NSScreen.main!.backingScaleFactor
+            textLayer.frame = CGRect(x: fontSize, y: fontSize, width: frame.width, height: fontSize * 1.5)
+            textLayer.font = font
+            textLayer.fontSize = fontSize
+            textLayer.alignmentMode = .left
+            textLayer.string = settings.getPolyhedron().name
+            textLayer.backgroundColor = CGColor.clear
+            textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.2)
+            layer?.addSublayer(textLayer)
         }
-        let cachedRenderings = settings.getPolyhedron().generateCachedRenderings(
+        self.cachedRenderings = settings.getPolyhedron().generateCachedRenderings(
             radius: radius,
             color: settings.fixedColor)
-        polyhedronView = PolyhedronView(origin: position, radius: radius, cachedRenderings: cachedRenderings)
-        addSubview(polyhedronView!)
+        polyhedronView = PolyhedronView(lineWidth: 1)
+        layer?.addSublayer(polyhedronView!)
         super.startAnimation()
     }
 
     override func stopAnimation() {
-        for view in subviews {
-            view.removeFromSuperview()
-        }
+        polyhedronView = nil
+        layer?.sublayers?.removeAll()
         super.stopAnimation()
     }
 
@@ -76,7 +78,8 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     override func animateOneFrame() {
         super.animateOneFrame()
         // update object position
-        let boundingBox = polyhedronView!.getBoundingBox()
+        let rendering = cachedRenderings[rotation]
+        let boundingBox = rendering.boundingBox
         let positionX = position.x + velocity.dx
         let left = positionX + boundingBox.left
         let right = positionX - boundingBox.right
@@ -91,7 +94,6 @@ class PolyhedraScreenSaverView: ScreenSaverView {
             velocity.dy *= -1
         }
         position.y += velocity.dy
-        polyhedronView!.setFrameOrigin(position)
-        polyhedronView!.rotate()
+        polyhedronView!.setRendering(position: position, rendering: rendering)
     }
 }
