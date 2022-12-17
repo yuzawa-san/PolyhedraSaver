@@ -9,12 +9,15 @@ class PolyhedraLayer: CALayer {
         let backLayer = CAShapeLayer()
         backLayer.contentsScale = scale
         backLayer.lineWidth = lineWidth
+        backLayer.isOpaque = true
         self.backLayer = backLayer
         let frontLayer = CAShapeLayer()
         frontLayer.contentsScale = scale
         frontLayer.lineWidth = lineWidth
+        frontLayer.isOpaque = true
         self.frontLayer = frontLayer
         super.init()
+        isOpaque = true
         addSublayer(backLayer)
         addSublayer(frontLayer)
     }

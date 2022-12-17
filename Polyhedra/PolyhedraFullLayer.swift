@@ -22,29 +22,33 @@ class PolyhedraFullLayer: CALayer {
         polyhedronPosition.x = CGFloat.random(in: 0 ..< maxX)
         polyhedronPosition.y = CGFloat.random(in: 0 ..< maxY)
         self.polyhedraLayer.frame = CGRect(origin: polyhedronPosition,
-                                            size: CGSize(width: radius * 2, height: radius * 2))
+                                            size: CGSize(width: Int(radius * 2), height: Int(radius * 2)))
         let polyhedron = settings.getPolyhedron()
         self.cachedRenderings = polyhedron.generateCachedRenderings(
             radius: radius,
             color: settings.fixedColor)
         super.init()
+        self.isOpaque = true
         let scale = NSScreen.main!.backingScaleFactor
+        addSublayer(polyhedraLayer)
         if settings.shouldShowPolyhedronName() {
             let fontSize: CGFloat = isPreview ? 5 : 24
             // configure text
             let font = NSFont.systemFont(ofSize: fontSize)
             let textLayer = CATextLayer()
             textLayer.contentsScale = scale
-            textLayer.frame = CGRect(x: fontSize, y: fontSize, width: size.width, height: fontSize * 1.5)
+            let name = polyhedron.name
+            let stringSize = name.size(withAttributes: [.font: font])
+            textLayer.frame = CGRect(origin: CGPoint(x: fontSize, y: fontSize), size: stringSize)
             textLayer.font = font
             textLayer.fontSize = fontSize
             textLayer.alignmentMode = .left
             textLayer.string = polyhedron.name
             textLayer.backgroundColor = CGColor.clear
             textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.2)
+            textLayer.isOpaque = true
             addSublayer(textLayer)
         }
-        addSublayer(polyhedraLayer)
     }
 
     @available(*, unavailable)
