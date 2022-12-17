@@ -1,8 +1,8 @@
 import AppKit
 
 class PolyhedraFullLayer: CALayer {
-    private let polyhedraLayer: PolyhedraLayer
-    private let cachedRenderings: [CachedRendering]
+    private let polyhedraLayer: CALayer
+    private let cachedRenderings: ContiguousArray<CachedRendering>
     private let radius: CGFloat
     private let maxX: CGFloat
     private let maxY: CGFloat
@@ -12,7 +12,8 @@ class PolyhedraFullLayer: CALayer {
 
     public init(size: CGSize, isPreview: Bool) {
         let settings = PolyhedraSettings()
-        self.polyhedraLayer = PolyhedraLayer(lineWidth: 1)
+        self.polyhedraLayer = CALayer()
+        self.polyhedraLayer.isOpaque = true
         self.radius = isPreview ? 25 : 150
         self.velocity = isPreview ? CGVector(dx: 6, dy: 6) : CGVector(dx: 12, dy: 12)
         // make sure polyhedron (2 * radius in width) does not got off screen
@@ -25,18 +26,17 @@ class PolyhedraFullLayer: CALayer {
                                             size: CGSize(width: Int(radius * 2), height: Int(radius * 2)))
         let polyhedron = settings.getPolyhedron()
         self.cachedRenderings = polyhedron.generateCachedRenderings(
-            radius: radius,
+            radius: radius, lineWidth: 1,
             color: settings.fixedColor)
         super.init()
         self.isOpaque = true
-        let scale = NSScreen.main!.backingScaleFactor
         addSublayer(polyhedraLayer)
         if settings.shouldShowPolyhedronName() {
             let fontSize: CGFloat = isPreview ? 5 : 24
             // configure text
             let font = NSFont.systemFont(ofSize: fontSize)
             let textLayer = CATextLayer()
-            textLayer.contentsScale = scale
+            textLayer.contentsScale = Polyhedron.scale
             let name = polyhedron.name
             let stringSize = name.size(withAttributes: [.font: font])
             textLayer.frame = CGRect(origin: CGPoint(x: fontSize, y: fontSize), size: stringSize)
@@ -46,6 +46,8 @@ class PolyhedraFullLayer: CALayer {
             textLayer.string = polyhedron.name
             textLayer.backgroundColor = CGColor.clear
             textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.2)
+            textLayer.rasterizationScale = Polyhedron.scale
+            textLayer.shouldRasterize = true
             textLayer.isOpaque = true
             addSublayer(textLayer)
         }
@@ -74,8 +76,12 @@ class PolyhedraFullLayer: CALayer {
             velocity.dy *= -1
         }
         polyhedronPosition.y += velocity.dy
-        rotation = (rotation + 1) % cachedRenderings.count
-        polyhedraLayer.setRendering(position: polyhedronPosition, rendering: rendering)
+        rotation = (rotation + 1) % 360
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        polyhedraLayer.sublayers = [rendering.layer]
+        polyhedraLayer.frame.origin = polyhedronPosition
+        CATransaction.commit()
     }
 
 }
