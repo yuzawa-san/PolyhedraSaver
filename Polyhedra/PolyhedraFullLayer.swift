@@ -3,11 +3,13 @@ import AppKit
 class PolyhedraFullLayer: CALayer {
     private let polyhedraLayer: CALayer
     private let cachedRenderings: ContiguousArray<CachedRendering>
-    private let radius: CGFloat
-    private let maxX: CGFloat
-    private let maxY: CGFloat
-    private var polyhedronPosition: CGPoint = .zero
-    private var velocity: CGVector = .zero
+    private let radius: Int
+    private let maxX: Int
+    private let maxY: Int
+    private var positionX: Int = .zero
+    private var positionY: Int = .zero
+    private var velocityX: Int = .zero
+    private var velocityY: Int = .zero
     private var rotation: Int = .zero
 
     public init(size: CGSize, isPreview: Bool) {
@@ -15,15 +17,15 @@ class PolyhedraFullLayer: CALayer {
         self.polyhedraLayer = CALayer()
         self.polyhedraLayer.isOpaque = true
         self.radius = isPreview ? 25 : 150
-        self.velocity = isPreview ? CGVector(dx: 6, dy: 6) : CGVector(dx: 12, dy: 12)
+        self.velocityX = isPreview ? 6 : 12
+        self.velocityY = velocityX
         // make sure polyhedron (2 * radius in width) does not got off screen
-        self.maxX = size.width - 2 * radius
-        self.maxY = size.height - 2 * radius
+        self.maxX = Int(size.width) - 2 * radius
+        self.maxY = Int(size.height) - 2 * radius
         // place at a random point in the frame
-        polyhedronPosition.x = CGFloat.random(in: 0 ..< maxX)
-        polyhedronPosition.y = CGFloat.random(in: 0 ..< maxY)
-        self.polyhedraLayer.frame = CGRect(origin: polyhedronPosition,
-                                            size: CGSize(width: Int(radius * 2), height: Int(radius * 2)))
+        self.positionX = Int.random(in: 0 ..< maxX)
+        self.positionY = Int.random(in: 0 ..< maxY)
+        self.polyhedraLayer.frame = CGRect(x: positionX, y: positionY, width: radius * 2, height: radius * 2)
         let polyhedron = settings.getPolyhedron()
         self.cachedRenderings = polyhedron.generateCachedRenderings(
             radius: radius, lineWidth: 1,
@@ -62,25 +64,34 @@ class PolyhedraFullLayer: CALayer {
         // update object position
         let rendering = cachedRenderings[rotation]
         let boundingBox = rendering.boundingBox
-        let positionX = polyhedronPosition.x + velocity.dx
-        let left = positionX + boundingBox.left
-        let right = positionX - boundingBox.right
+        var positionX = self.positionX
+        var velocityX = self.velocityX
+        let newPositionX = positionX + velocityX
+        let left = newPositionX + boundingBox.left
+        let right = newPositionX - boundingBox.right
         if left < 0 || right > maxX {
-            velocity.dx *= -1
+            velocityX = -velocityX
+            self.velocityX = velocityX
         }
-        polyhedronPosition.x += velocity.dx
-        let positionY = polyhedronPosition.y + velocity.dy
-        let bottom = positionY + boundingBox.bottom
-        let top = positionY - boundingBox.top
+        positionX += velocityX
+        self.positionX = positionX
+        var positionY = self.positionY
+        var velocityY = self.velocityY
+        let newPositionY = positionY + velocityY
+        let bottom = newPositionY + boundingBox.bottom
+        let top = newPositionY - boundingBox.top
         if bottom < 0 || top > maxY {
-            velocity.dy *= -1
+            velocityY = -velocityY
+            self.velocityY = velocityY
         }
-        polyhedronPosition.y += velocity.dy
+        positionY += velocityY
+        self.positionY = positionY
         rotation = (rotation + 1) % 360
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        polyhedraLayer.sublayers = [rendering.layer]
-        polyhedraLayer.frame.origin = polyhedronPosition
+        polyhedraLayer.sublayers = rendering.layer
+        polyhedraLayer.frame.origin.x = CGFloat(positionX)
+        polyhedraLayer.frame.origin.y = CGFloat(positionY)
         CATransaction.commit()
     }
 
