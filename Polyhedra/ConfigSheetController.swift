@@ -46,7 +46,7 @@ class PolyhedraSettingsController: NSObject {
 
     private static let radius: CGFloat = 24
     private let settings = PolyhedraSettings()
-    private let rows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows(radius: radius)
+    private let rows: [PolyhedronCellInfo] = PolyhedraRegistry.generateRows(radius: Int(radius))
     private let currentBundle = Bundle(for: PolyhedraSettingsController.self)
 
     override init() {
@@ -103,9 +103,9 @@ extension PolyhedraSettingsController: NSTableViewDataSource, NSTableViewDelegat
             }
             cellView.wantsLayer = true
             cellView.layer?.sublayers?.removeAll()
-            let polyhedronLayer = PolyhedraLayer(lineWidth: 0.5)
-            polyhedronLayer.setRendering(position: .zero, rendering: polyhedraRow.cachedRendering)
-            cellView.layer?.addSublayer(polyhedronLayer)
+            if let rendering = polyhedraRow.cachedRendering {
+                cellView.layer?.sublayers = rendering.layer
+            }
             return cellView
         } else {
             guard let cellView = tableView.makeView(withIdentifier:

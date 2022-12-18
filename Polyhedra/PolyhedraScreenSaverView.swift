@@ -12,6 +12,8 @@ class PolyhedraScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         let polyhedronScreenSaverLayer = PolyhedraFullLayer(size: frame.size, isPreview: isPreview)
+        layer?.drawsAsynchronously = true
+        layer?.isOpaque = true
         layer?.addSublayer(polyhedronScreenSaverLayer)
         self.polyhedronScreenSaverLayer = polyhedronScreenSaverLayer
         super.startAnimation()
