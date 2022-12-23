@@ -1,23 +1,31 @@
 import AppKit
 
 class PolyhedraFullLayer: CALayer {
+    static let fpsSlow: Int = 24
+    static let fpsFast: Int = 48
+    static let rotationSeconds: Int = 15
+    static let degrees: Int = 360
+
     private let polyhedraLayer: CALayer
     private let cachedRenderings: ContiguousArray<CachedRendering>
     private let radius: Int
     private let maxX: Int
     private let maxY: Int
+    private let framesPerDegree: Int
     private var positionX: Int = .zero
     private var positionY: Int = .zero
     private var velocityX: Int = .zero
     private var velocityY: Int = .zero
     private var rotation: Int = .zero
+    private var frameNumber: Int = .zero
 
-    public init(size: CGSize, isPreview: Bool) {
+    public init(size: CGSize, fps: Int) {
         let settings = PolyhedraSettings()
         self.polyhedraLayer = CALayer()
         self.polyhedraLayer.isOpaque = true
-        self.radius = isPreview ? 25 : 150
-        self.velocityX = isPreview ? 6 : 12
+        self.framesPerDegree = fps * PolyhedraFullLayer.rotationSeconds / PolyhedraFullLayer.degrees
+        self.radius = Int(min(size.width, size.height) * 0.15)
+        self.velocityX = max(1, radius / fps * 2)
         self.velocityY = velocityX
         // make sure polyhedron (2 * radius in width) does not got off screen
         self.maxX = Int(size.width) - 2 * radius
@@ -34,7 +42,7 @@ class PolyhedraFullLayer: CALayer {
         self.isOpaque = true
         addSublayer(polyhedraLayer)
         if settings.shouldShowPolyhedronName() {
-            let fontSize: CGFloat = isPreview ? 5 : 24
+            let fontSize: CGFloat = CGFloat(radius) * 0.15
             // configure text
             let font = NSFont.systemFont(ofSize: fontSize)
             let textLayer = CATextLayer()
@@ -62,6 +70,7 @@ class PolyhedraFullLayer: CALayer {
 
     func animateOneFrame() {
         // update object position
+        let rotation = self.rotation
         let rendering = cachedRenderings[rotation]
         let boundingBox = rendering.boundingBox
         var positionX = self.positionX
@@ -86,7 +95,11 @@ class PolyhedraFullLayer: CALayer {
         }
         positionY += velocityY
         self.positionY = positionY
-        rotation = (rotation + 1) % 360
+        let frameNumber = (self.frameNumber + 1) % framesPerDegree
+        if frameNumber == 0 {
+            self.rotation = (rotation + 1) % PolyhedraFullLayer.degrees
+        }
+        self.frameNumber = frameNumber
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         polyhedraLayer.sublayers = rendering.layer
