@@ -136,7 +136,7 @@ struct Polyhedron: Codable {
                                   color: NSColor?) -> ContiguousArray<CachedRendering> {
         var renderedPolygons = [CachedRendering]()
         // precompute all of the rotations
-        for degrees in 0 ..< 360 {
+        for degrees in 0 ..< PolyhedraFullLayer.degrees {
             let effectiveColor = color ?? PolyhedraRegistry.colors[degrees]
             let cachedRendering = generateCachedRendering(degrees: degrees, color: effectiveColor.cgColor,
                                                           radius: radius, lineWidth: lineWidth)
