@@ -21,13 +21,15 @@ jobs:
       - name: Get the configuration
         id: get_configuration
         run: |
-          [ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo ::set-output name=configuration::Release || echo ::set-output name=configuration::Debug
+          [ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo "configuration=Release" >> $GITHUB_OUTPUT || echo "configuration=Debug" >> $GITHUB_OUTPUT
       - name: build
         run: xcodebuild clean build -configuration ${{ steps.get_configuration.outputs.configuration }}
       - name: Stage Artifact
-        run: mkdir bundle && cp -r build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver bundle/
-      - name: 'Store Artifact'
-        uses: actions/upload-artifact@v3
+        run: cd build/${{ steps.get_configuration.outputs.configuration }} && zip -r Polyhedra.saver.zip Polyhedra.saver && shasum -a 256 Polyhedra.saver.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: Polyhedra.saver
-          path: bundle/
+          draft: true
+          generate_release_notes: true
+          files: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
