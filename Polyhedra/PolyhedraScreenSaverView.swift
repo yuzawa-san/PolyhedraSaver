@@ -29,7 +29,7 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     override func startAnimation() {
         let fps = PolyhedraScreenSaverView.calculateFramesPerSecond()
         animationTimeInterval = 1.0 / Double(fps)
-        let polyhedronScreenSaverLayer = PolyhedraFullLayer(size: frame.size, fps: fps)
+        let polyhedronScreenSaverLayer = PolyhedraFullLayer(size: frame.size, fps: fps, isPreview: isPreview)
         layer?.drawsAsynchronously = true
         layer?.isOpaque = true
         layer?.addSublayer(polyhedronScreenSaverLayer)

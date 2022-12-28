@@ -19,7 +19,7 @@ class PolyhedraFullLayer: CALayer {
     private var rotation: Int = .zero
     private var frameNumber: Int = .zero
 
-    public init(size: CGSize, fps: Int) {
+    public init(size: CGSize, fps: Int, isPreview: Bool) {
         let settings = PolyhedraSettings()
         self.polyhedraLayer = CALayer()
         self.polyhedraLayer.isOpaque = true
@@ -41,15 +41,16 @@ class PolyhedraFullLayer: CALayer {
         super.init()
         self.isOpaque = true
         addSublayer(polyhedraLayer)
-        if settings.shouldShowPolyhedronName() {
-            let fontSize: CGFloat = CGFloat(radius) * 0.15
+        if !isPreview && settings.shouldShowPolyhedronName() {
             // configure text
-            let font = NSFont.systemFont(ofSize: fontSize)
+            let font = NSFont.menuBarFont(ofSize: -1)
+            let fontSize = font.pointSize
             let textLayer = CATextLayer()
             textLayer.contentsScale = Polyhedron.scale
             let name = polyhedron.name
             let stringSize = name.size(withAttributes: [.font: font])
-            textLayer.frame = CGRect(origin: CGPoint(x: fontSize, y: fontSize), size: stringSize)
+            let textOffset = CGFloat(radius) * 0.1
+            textLayer.frame = CGRect(origin: CGPoint(x: textOffset, y: textOffset), size: stringSize)
             textLayer.font = font
             textLayer.fontSize = fontSize
             textLayer.alignmentMode = .left
