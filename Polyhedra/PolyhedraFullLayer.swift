@@ -24,7 +24,7 @@ class PolyhedraFullLayer: CALayer {
         self.polyhedraLayer = CALayer()
         self.polyhedraLayer.isOpaque = true
         self.framesPerDegree = fps * PolyhedraFullLayer.rotationSeconds / PolyhedraFullLayer.degrees
-        self.radius = Int(min(size.width, size.height) * 0.15)
+        self.radius = Int(min(size.width, size.height) * 0.125)
         self.velocityX = max(1, radius / fps * 2)
         self.velocityY = velocityX
         // make sure polyhedron (2 * radius in width) does not got off screen
@@ -43,8 +43,8 @@ class PolyhedraFullLayer: CALayer {
         addSublayer(polyhedraLayer)
         if !isPreview && settings.shouldShowPolyhedronName() {
             // configure text
-            let font = NSFont.menuBarFont(ofSize: -1)
-            let fontSize = font.pointSize
+            let fontSize = NSFont.systemFontSize * 2
+            let font = NSFont.systemFont(ofSize: fontSize)
             let textLayer = CATextLayer()
             textLayer.contentsScale = Polyhedron.scale
             let name = polyhedron.name
@@ -56,7 +56,7 @@ class PolyhedraFullLayer: CALayer {
             textLayer.alignmentMode = .left
             textLayer.string = polyhedron.name
             textLayer.backgroundColor = CGColor.clear
-            textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.2)
+            textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.3)
             textLayer.rasterizationScale = Polyhedron.scale
             textLayer.shouldRasterize = true
             textLayer.isOpaque = true

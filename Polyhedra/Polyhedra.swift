@@ -69,7 +69,7 @@ struct Polyhedron: Codable {
         backLayer.contentsScale = Polyhedron.scale
         backLayer.lineWidth = lineWidth
         backLayer.isOpaque = true
-        backLayer.strokeColor = color.copy(alpha: 0.25)!
+        backLayer.strokeColor = color.copy(alpha: 0.4)!
         backLayer.path = backPath.copy()
         let frontLayer = CAShapeLayer()
         frontLayer.contentsScale = Polyhedron.scale
