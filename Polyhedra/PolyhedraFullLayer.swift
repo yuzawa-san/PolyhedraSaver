@@ -49,8 +49,9 @@ class PolyhedraFullLayer: CALayer {
             textLayer.contentsScale = Polyhedron.scale
             let name = polyhedron.name
             let stringSize = name.size(withAttributes: [.font: font])
-            let textOffset = CGFloat(radius) * 0.1
-            textLayer.frame = CGRect(origin: CGPoint(x: textOffset, y: textOffset), size: stringSize)
+            let textOffset = Int(CGFloat(radius) * 0.1)
+            textLayer.frame = CGRect(origin: CGPoint(x: textOffset, y: textOffset),
+                                     size: CGSize(width: Int(stringSize.width), height: Int(stringSize.height)))
             textLayer.font = font
             textLayer.fontSize = fontSize
             textLayer.alignmentMode = .left
