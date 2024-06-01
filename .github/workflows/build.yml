@@ -15,6 +15,10 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
@@ -33,3 +37,7 @@ jobs:
           draft: false
           generate_release_notes: true
           files: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
+      - name: Attest
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
