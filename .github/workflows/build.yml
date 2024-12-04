@@ -38,6 +38,6 @@ jobs:
           generate_release_notes: true
           files: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
       - name: Attest
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2
         with:
           subject-path: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
