@@ -9,6 +9,12 @@ class PolyhedraScreenSaverView: ScreenSaverView {
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
         wantsLayer = true
+        if !isPreview, #available(macOS 14.0, *) {
+            NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(willStop(_:)),
+                name: NSWorkspace.willSleepNotification, object: nil)
+            DistributedNotificationCenter.default.addObserver(self, selector: #selector(willStop(_:)),
+                name: Notification.Name("com.apple.screensaver.willstop"), object: nil)
+        }
     }
 
     // if we're on battery let's lower the FPS
@@ -41,6 +47,12 @@ class PolyhedraScreenSaverView: ScreenSaverView {
         polyhedronScreenSaverLayer = nil
         layer?.sublayers?.removeAll()
         super.stopAnimation()
+    }
+
+    @objc func willStop(_ aNotification: Notification) {
+        if #available(macOS 14.0, *) {
+            exit(0)
+        }
     }
 
     @available(*, unavailable)
