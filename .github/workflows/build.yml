@@ -47,5 +47,5 @@ jobs:
         with:
           name: PolyhedraSaver-${{ github.sha }}
           path: |
-            build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver
+            build/${{ steps.get_configuration.outputs.configuration }}/
             !**/*.zip
