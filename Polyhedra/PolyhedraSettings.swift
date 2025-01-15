@@ -5,13 +5,15 @@ class PolyhedraSettings {
     private var polyhedronName: String = ""
     private var polyhedron: Polyhedron?
     private var showPolyhedronName: Bool = false
-    var showComputerName: Bool = false
+    var showMessage: Bool = false
+    var message: String?
     var fixedColor: NSColor?
 
     init() {
         let identifier = Bundle(for: PolyhedraSettings.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
-        showComputerName = defaults.bool(forKey: "show_computer_name")
+        showMessage = defaults.bool(forKey: "show_message")
+        message = defaults.string(forKey: "message")
         fixedColor = PolyhedraSettings.readColorOverride(defaults)
         let name = defaults.string(forKey: "polyhedron_name") ?? PolyhedraRegistry.defaultName
         setPolyhedronName(name: name)
@@ -43,6 +45,10 @@ class PolyhedraSettings {
         return polyhedronName
     }
 
+    func getMessage() -> String {
+        return message ?? Host.current().localizedName ?? ""
+    }
+
     func shouldShowPolyhedronName() -> Bool {
         return showPolyhedronName
     }
@@ -56,7 +62,8 @@ class PolyhedraSettings {
                 defaults.set(data, forKey: "fixed_color")
             }
         }
-        defaults.set(showComputerName, forKey: "show_computer_name")
+        defaults.set(showMessage, forKey: "show_message")
+        defaults.set(message, forKey: "message")
         defaults.synchronize()
     }
 }

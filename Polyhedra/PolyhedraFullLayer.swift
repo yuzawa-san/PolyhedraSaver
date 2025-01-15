@@ -49,9 +49,8 @@ class PolyhedraFullLayer: CALayer {
                 textLayer.frame = sourceFrame.offsetBy(dx: textOffset, dy: textOffset)
                 addSublayer(textLayer)
             }
-            if settings.showComputerName {
-                let hostname = Host.current().localizedName ?? ""
-                let textLayer = PolyhedraFullLayer.newTextLayer(content: hostname)
+            if settings.showMessage {
+                let textLayer = PolyhedraFullLayer.newTextLayer(content: settings.getMessage())
                 let sourceFrame = textLayer.frame
                 textLayer.frame = sourceFrame.offsetBy(
                     dx: textOffset, dy: size.height - textOffset - sourceFrame.height)
