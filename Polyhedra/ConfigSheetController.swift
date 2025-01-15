@@ -42,6 +42,7 @@ class PolyhedraSettingsController: NSObject {
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var fixedColorCheckbox: NSButton!
     @IBOutlet var fixedColorWell: NSColorWell!
+    @IBOutlet var computerNameCheckbox: NSButton!
     @IBOutlet var informationLabel: NSTextField!
 
     private static let radius: CGFloat = 24
@@ -64,6 +65,7 @@ class PolyhedraSettingsController: NSObject {
         tableView.scrollRowToVisible(selectedIdx)
         fixedColorCheckbox.state = settings.fixedColor == nil ? .off : .on
         fixedColorWell.color = settings.fixedColor ?? NSColor.red
+        computerNameCheckbox.state = settings.showComputerName ? .on : .off
         if let text = currentBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
             informationLabel.stringValue =
                 "PolyhedraSaver by yuzawa-san\n" +
@@ -80,6 +82,7 @@ class PolyhedraSettingsController: NSObject {
         } else {
             settings.fixedColor = nil
         }
+        settings.showComputerName = computerNameCheckbox.state == .on
         settings.write()
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -63,7 +63,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="preview" id="fjB-vM-fTm" customClass="PolyhedronCellView" customModule="Polyhedra" customModuleProvider="target">
-                                                    <rect key="frame" x="18" y="0.0" width="46" height="24"/>
+                                                    <rect key="frame" x="8" y="0.0" width="46" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </tableCellView>
                                             </prototypeCellViews>
@@ -81,7 +81,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="name" id="3lJ-af-eiI">
-                                                    <rect key="frame" x="81" y="0.0" width="447" height="24"/>
+                                                    <rect key="frame" x="71" y="0.0" width="447" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSu-CM-g43">
@@ -168,12 +168,21 @@ Gw
                             <action selector="info:" target="-2" id="ZfC-5P-Xhz"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wud-SJ-SR4">
+                        <rect key="frame" x="458" y="96" width="162" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show Computer Name" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IVx-fl-t0R">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-89" y="81"/>
         </window>
         <customObject id="d3v-Cp-snb" customClass="PolyhedraSettingsController" customModule="Polyhedra" customModuleProvider="target">
             <connections>
+                <outlet property="computerNameCheckbox" destination="Wud-SJ-SR4" id="ypp-w4-3gX"/>
                 <outlet property="fixedColorCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
                 <outlet property="fixedColorWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
                 <outlet property="informationLabel" destination="K0G-bs-Wwb" id="6u5-h8-oPE"/>
