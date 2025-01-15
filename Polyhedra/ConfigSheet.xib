@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -63,7 +63,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="preview" id="fjB-vM-fTm" customClass="PolyhedronCellView" customModule="Polyhedra" customModuleProvider="target">
-                                                    <rect key="frame" x="18" y="0.0" width="46" height="24"/>
+                                                    <rect key="frame" x="8" y="0.0" width="46" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </tableCellView>
                                             </prototypeCellViews>
@@ -81,10 +81,10 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="name" id="3lJ-af-eiI">
-                                                    <rect key="frame" x="81" y="0.0" width="447" height="24"/>
+                                                    <rect key="frame" x="71" y="0.0" width="447" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSu-CM-g43">
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSu-CM-g43">
                                                             <rect key="frame" x="0.0" y="4" width="447" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Azr-Qm-sx6">
@@ -117,7 +117,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K0G-bs-Wwb">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K0G-bs-Wwb">
                         <rect key="frame" x="18" y="33" width="310" height="56"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label x y z" id="Hrs-Hk-KY0">
@@ -168,6 +168,23 @@ Gw
                             <action selector="info:" target="-2" id="ZfC-5P-Xhz"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wud-SJ-SR4">
+                        <rect key="frame" x="328" y="94" width="117" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Show Message" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IVx-fl-t0R">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z1m-7j-3gL">
+                        <rect key="frame" x="452" y="92" width="167" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="IT0-1t-3hs">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-89" y="81"/>
@@ -177,8 +194,11 @@ Gw
                 <outlet property="fixedColorCheckbox" destination="P7w-Fb-UES" id="V3r-ue-7dW"/>
                 <outlet property="fixedColorWell" destination="IvE-d5-PCC" id="NQm-Df-Wpw"/>
                 <outlet property="informationLabel" destination="K0G-bs-Wwb" id="6u5-h8-oPE"/>
+                <outlet property="messageCheckbox" destination="Wud-SJ-SR4" id="XU1-go-pEJ"/>
+                <outlet property="messageTextbox" destination="Z1m-7j-3gL" id="7eJ-rL-rhb"/>
                 <outlet property="tableView" destination="BlY-xb-mp2" id="WPz-6c-FOj"/>
             </connections>
         </customObject>
+        <userDefaultsController representsSharedInstance="YES" id="mqq-Jj-F2s"/>
     </objects>
 </document>

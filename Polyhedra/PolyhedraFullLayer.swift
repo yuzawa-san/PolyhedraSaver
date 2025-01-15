@@ -41,28 +41,42 @@ class PolyhedraFullLayer: CALayer {
         super.init()
         self.isOpaque = true
         addSublayer(polyhedraLayer)
-        if !isPreview && settings.shouldShowPolyhedronName() {
-            // configure text
-            let fontSize = NSFont.systemFontSize * 2
-            let font = NSFont.systemFont(ofSize: fontSize)
-            let textLayer = CATextLayer()
-            textLayer.contentsScale = Polyhedron.scale
-            let name = polyhedron.name
-            let stringSize = name.size(withAttributes: [.font: font])
-            let textOffset = Int(CGFloat(radius) * 0.1)
-            textLayer.frame = CGRect(origin: CGPoint(x: textOffset, y: textOffset),
-                                     size: CGSize(width: Int(stringSize.width), height: Int(stringSize.height)))
-            textLayer.font = font
-            textLayer.fontSize = fontSize
-            textLayer.alignmentMode = .left
-            textLayer.string = polyhedron.name
-            textLayer.backgroundColor = CGColor.clear
-            textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.3)
-            textLayer.rasterizationScale = Polyhedron.scale
-            textLayer.shouldRasterize = true
-            textLayer.isOpaque = true
-            addSublayer(textLayer)
+        if !isPreview {
+            let textOffset = CGFloat(radius) * 0.1
+            if settings.shouldShowPolyhedronName() {
+                let textLayer = PolyhedraFullLayer.newTextLayer(content: polyhedron.name)
+                let sourceFrame = textLayer.frame
+                textLayer.frame = sourceFrame.offsetBy(dx: textOffset, dy: textOffset)
+                addSublayer(textLayer)
+            }
+            if settings.showMessage {
+                let textLayer = PolyhedraFullLayer.newTextLayer(content: settings.getMessage())
+                let sourceFrame = textLayer.frame
+                textLayer.frame = sourceFrame.offsetBy(
+                    dx: textOffset, dy: size.height - textOffset - sourceFrame.height)
+                addSublayer(textLayer)
+            }
         }
+    }
+
+    private static func newTextLayer(content: String) -> CATextLayer {
+        let fontSize = NSFont.systemFontSize * 2
+        let font = NSFont.systemFont(ofSize: fontSize)
+        let textLayer = CATextLayer()
+        textLayer.contentsScale = Polyhedron.scale
+        let stringSize = content.size(withAttributes: [.font: font])
+        textLayer.frame = CGRect(origin: .zero,
+                                 size: stringSize)
+        textLayer.font = font
+        textLayer.fontSize = fontSize
+        textLayer.alignmentMode = .left
+        textLayer.string = content
+        textLayer.backgroundColor = CGColor.clear
+        textLayer.foregroundColor = CGColor.init(gray: 1.0, alpha: 0.3)
+        textLayer.rasterizationScale = Polyhedron.scale
+        textLayer.shouldRasterize = true
+        textLayer.isOpaque = true
+        return textLayer
     }
 
     @available(*, unavailable)
