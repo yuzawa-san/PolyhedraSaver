@@ -76,7 +76,7 @@ brew update
 # upgrade all Homebrew software
 brew upgrade
 # update just this
-brew upgrade --no-quarantine --cask polyhedrasaver
+brew upgrade --cask polyhedrasaver
 ```
 
 ## Building
