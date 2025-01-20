@@ -38,7 +38,6 @@ The minimum build target is macOS 10.15 (Catalina) for [technical ](https://deve
 
 * Download a [release ZIP archive](https://github.com/yuzawa-san/PolyhedraSaver/releases).
 * Open `Polyhedra.saver.zip` to uncompress.
-* Due to the lack of code signing (that costs money), it is necessary to tell the system to trust this download by running `xattr -d "com.apple.quarantine" /path/to/your/Polyhedra.saver`
 * Open `Polyhedra.saver` which will load the screen saver System Preferences pane. This will install the screensaver.
 * Configure the screensaver.
 
@@ -68,9 +67,8 @@ brew tap yuzawa-san/tap
 To install:
 ```console
 brew update
-brew install --no-quarantine --cask polyhedrasaver
+brew install --cask polyhedrasaver
 ```
-The code is not signed, so the `--no-quarantine` flag will be needed to have your system trust it.
 
 To update:
 ```console
