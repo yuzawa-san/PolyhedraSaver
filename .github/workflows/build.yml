@@ -52,8 +52,11 @@ jobs:
       - name: build
         run: xcodebuild clean build -configuration ${{ steps.get_configuration.outputs.configuration }}
       - name: Stage Artifact
-        run: cd build/${{ steps.get_configuration.outputs.configuration }} && zip -r Polyhedra.saver.zip Polyhedra.saver && xcrun notarytool submit Polyhedra.saver.zip --apple-id "${{ secrets.APPLE_ID }}" --team-id "96QY9UPB32" --password "${{ secrets.APPLE_ID_APP_SPECIFIC_PASSWORD }}" --verbose --wait 
- && shasum -a 256 Polyhedra.saver.zip
+        run: |
+          cd build/${{ steps.get_configuration.outputs.configuration }} && \
+          zip -r Polyhedra.saver.zip Polyhedra.saver && \
+          xcrun notarytool submit Polyhedra.saver.zip --apple-id "${{ secrets.APPLE_ID }}" --team-id "96QY9UPB32" --password "${{ secrets.APPLE_ID_APP_SPECIFIC_PASSWORD }}" --verbose --wait && \
+          shasum -a 256 Polyhedra.saver.zip
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
