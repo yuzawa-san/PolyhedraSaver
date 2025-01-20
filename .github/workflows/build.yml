@@ -27,7 +27,7 @@ jobs:
         run: |
           [ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo "configuration=Release" >> $GITHUB_OUTPUT || echo "configuration=Debug" >> $GITHUB_OUTPUT
       - name: Install the Apple certificate and provisioning profile
-        #if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -59,7 +59,7 @@ jobs:
           zip -r Polyhedra.saver.zip Polyhedra.saver && \
           shasum -a 256 Polyhedra.saver.zip
       - name: Sign zip
-        #if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           cd build/${{ steps.get_configuration.outputs.configuration }} && \
           xcrun notarytool submit Polyhedra.saver.zip  --keychain-profile "notarytool-profile" --verbose --wait
