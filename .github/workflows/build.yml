@@ -62,8 +62,7 @@ jobs:
         #if: startsWith(github.ref, 'refs/tags/')
         run: |
           cd build/${{ steps.get_configuration.outputs.configuration }} && \
-          xcrun notarytool submit Polyhedra.saver.zip  --keychain-profile "notarytool-profile" --verbose --wait && \
-          xcrun stapler staple --verbose Polyhedra.saver.zip
+          xcrun notarytool submit Polyhedra.saver.zip  --keychain-profile "notarytool-profile" --verbose --wait
       - name: Get hash
         run: |
           shasum -a 256 build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
