@@ -343,6 +343,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0;
+				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -371,6 +372,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyuzawa.polyhedra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
