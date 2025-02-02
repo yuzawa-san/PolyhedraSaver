@@ -25,8 +25,7 @@ jobs:
       - name: Get the configuration
         id: get_configuration
         run: |
-          echo "configuration=Release" >> $GITHUB_OUTPUT
-          #[ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo "configuration=Release" >> $GITHUB_OUTPUT || echo "configuration=Debug" >> $GITHUB_OUTPUT
+          [ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo "configuration=Release" >> $GITHUB_OUTPUT || echo "configuration=Debug" >> $GITHUB_OUTPUT
       - name: Install the Apple certificate and provisioning profile
         if: ${{ steps.get_configuration.outputs.configuration == 'Release' }}
         env:
