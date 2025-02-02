@@ -27,7 +27,7 @@ jobs:
         run: |
           [ $(echo ${{ github.ref }} | cut -d / -f 2) = "tags" ] && echo "configuration=Release" >> $GITHUB_OUTPUT || echo "configuration=Debug" >> $GITHUB_OUTPUT
       - name: Install the Apple certificate and provisioning profile
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ steps.get_configuration.outputs.configuration == 'Release' }}
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -53,16 +53,19 @@ jobs:
           xcrun notarytool store-credentials "notarytool-profile" --apple-id "${{ secrets.APPLE_ID }}" --team-id "96QY9UPB32" --password "${{ secrets.APPLE_ID_APP_SPECIFIC_PASSWORD }}"
       - name: build
         run: xcodebuild clean build -configuration ${{ steps.get_configuration.outputs.configuration }}
-      - name: Stage Artifact
+      - name: Notarize
+        if: ${{ steps.get_configuration.outputs.configuration == 'Release' }}
         run: |
           cd build/${{ steps.get_configuration.outputs.configuration }} && \
           zip -r Polyhedra.saver.zip Polyhedra.saver && \
-          shasum -a 256 Polyhedra.saver.zip
-      - name: Sign zip
-        if: startsWith(github.ref, 'refs/tags/')
+          xcrun notarytool submit Polyhedra.saver.zip  --keychain-profile "notarytool-profile" --verbose --wait && \
+          xcrun stapler staple --verbose Polyhedra.saver
+      - name: Create ZIP
         run: |
           cd build/${{ steps.get_configuration.outputs.configuration }} && \
-          xcrun notarytool submit Polyhedra.saver.zip  --keychain-profile "notarytool-profile" --verbose --wait
+          rm -f Polyhedra.saver.zip && \
+          zip -r Polyhedra.saver.zip Polyhedra.saver && \
+          shasum -a 256 Polyhedra.saver.zip
       - name: Get hash
         run: |
           shasum -a 256 build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
