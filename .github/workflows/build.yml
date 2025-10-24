@@ -82,7 +82,7 @@ jobs:
           subject-path: build/${{ steps.get_configuration.outputs.configuration }}/Polyhedra.saver.zip
       - name: Upload Artifact
         if: "!startsWith(github.ref, 'refs/tags/')"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: PolyhedraSaver-${{ github.sha }}
           path: |
